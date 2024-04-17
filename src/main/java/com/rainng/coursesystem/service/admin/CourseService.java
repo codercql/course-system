@@ -69,7 +69,7 @@ public class CourseService extends BaseService {
         return result(entity);
     }
 
-    public ResultVO update(CourseEntity entity) {
+    public ResultVO<String> update(CourseEntity entity) {
         CourseEntity origin = manager.get(entity.getId());
         if (origin == null) {
             return failedResult("课程Id: " + entity.getId() + "不存在!");
@@ -96,7 +96,7 @@ public class CourseService extends BaseService {
         return result("删除成功");
     }
 
-    public ResultVO create(CourseEntity entity) {
+    public ResultVO<String> create(CourseEntity entity) {
         if (manager.get(entity.getId()) != null) {
             return failedResult("课程Id: " + entity.getId() + "已存在!");
         }
@@ -108,7 +108,7 @@ public class CourseService extends BaseService {
         return result("添加成功");
     }
 
-    public ResultVO getCoverByCourseId(Integer courseId){
+    public ResultVO<String> getCoverByCourseId(Integer courseId){
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (requestAttributes == null) {
             return failedResult("requestAttributes == null");

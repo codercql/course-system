@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class ResultVO implements Serializable {
+public class ResultVO<T> implements Serializable {
     public static final int NO_LOGIN = -1;
     public static final int SUCCESS = 0;
     public static final int FAIL = 1;
@@ -16,13 +16,13 @@ public class ResultVO implements Serializable {
     private static final long serialVersionUID = 1L;
     private Integer code;
     private String message;
-    private Object data;
+    private T data;
 
     public ResultVO() {
 
     }
 
-    public ResultVO(Integer code, String message, Object data) {
+    public ResultVO(Integer code, String message, T data) {
         this.code = code;
         this.message = message;
         this.data = data;

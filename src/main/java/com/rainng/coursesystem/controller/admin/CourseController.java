@@ -7,6 +7,7 @@ import com.rainng.coursesystem.model.entity.CourseEntity;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.service.admin.CourseService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,8 +32,9 @@ public class CourseController extends BaseController {
         return service.get(id);
     }
 
+    @ApiOperation("新增课程")
     @PostMapping("/addCourse")
-    public ResultVO addCourse(@RequestParam("entity") String entity,
+    public ResultVO<String> addCourse(@RequestParam("entity") String entity,
                               @RequestParam(value="multipartFile",required = false)MultipartFile multipartFile){
         CourseEntity courseEntity = JSONObject.parseObject(entity, CourseEntity.class);
         if(null != multipartFile){
@@ -60,19 +62,20 @@ public class CourseController extends BaseController {
         return service.update(entity);
     }
 
+    @ApiOperation("更新课程")
     @PostMapping("/updateCourse")
-    public ResultVO updateCourse(@Valid CourseEntity entity,
+    public ResultVO<String> updateCourse(@RequestParam("entity") String entity,
                               @RequestParam(value="multipartFile",required = false)MultipartFile multipartFile){
-//        CourseEntity courseEntity = JSONObject.parseObject(entity, CourseEntity.class);
+        CourseEntity courseEntity = JSONObject.parseObject(entity, CourseEntity.class);
         if(null != multipartFile){
             try {
                 byte[] bytes = multipartFile.getBytes();
-                entity.setCover(bytes);
+                courseEntity.setCover(bytes);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        return service.update(entity);
+        return service.update(courseEntity);
     }
 
     @RequestMapping("/page/count")
@@ -90,8 +93,9 @@ public class CourseController extends BaseController {
         return service.getPage(index, departmentName, teacherName, name);
     }
 
+    @ApiOperation("通过课程Id获取封面")
     @GetMapping("/getCoverByCourseId")
-    public ResultVO getCoverByCourseId(@RequestParam("courseId") Integer courseId){
+    public ResultVO<String> getCoverByCourseId(@RequestParam("courseId") Integer courseId){
         return service.getCoverByCourseId(courseId);
     }
 

@@ -35,7 +35,7 @@ public class CommentService extends BaseService{
     * @return: com.rainng.coursesystem.model.vo.response.ResultVO
     * @Date: 2024/4/11
     */
-    public ResultVO addComment(CommentVO vo) {
+    public ResultVO<String> addComment(CommentVO vo) {
         CommentEntity entity = new CommentEntity();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSSS");
         String id = sdf.format(System.currentTimeMillis());
@@ -49,7 +49,7 @@ public class CommentService extends BaseService{
         return result("评论成功");
     }
 
-    public ResultVO addReply(ReplyVO vo){
+    public ResultVO<String> addReply(ReplyVO vo){
 //        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSSS");
 //        String id = sdf.format(System.currentTimeMillis());
 //        Integer replyId = Integer.valueOf(id.substring(0,10));
@@ -73,7 +73,7 @@ public class CommentService extends BaseService{
     * @Author: chenqiulu
     * @Date: 2024/4/11
     */
-    public ResultVO getComment(Integer courseId){
+    public ResultVO<CommentReplyVO> getComment(Integer courseId){
         if(StringUtils.isEmpty(courseId)){
             return failedResult("课程ID不能为空");
         }
