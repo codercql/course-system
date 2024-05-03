@@ -5,6 +5,7 @@ import com.rainng.coursesystem.dao.mapper.ExamMapper;
 import com.rainng.coursesystem.model.entity.RcExamEntity;
 import com.rainng.coursesystem.model.vo.request.ExamSearchReqVO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
+import com.rainng.coursesystem.util.RandomNumUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,7 @@ public class RcExamService extends BaseService{
     }
 
     public ResultVO<String> addExam(RcExamEntity entity){
+        entity.setExamId(RandomNumUtil.getRandomNum());
         entity.setCreateTime(new Date());
         entity.setUpdateTime(new Date());
         examMapper.insert(entity);

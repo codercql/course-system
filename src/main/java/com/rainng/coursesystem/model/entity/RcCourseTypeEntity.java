@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -23,10 +25,12 @@ public class RcCourseTypeEntity implements Serializable {
 	 * 课程分类id
 	 */
 	@TableId
+	@ApiModelProperty("课程id")
 	private Integer typeId;
 	/**
 	 * 父级分类id，顶层为空
 	 */
+	@ApiModelProperty("父级分类id，顶层为空")
 	private Integer parentTypeId;
 	/**
 	 * 课程分类名称

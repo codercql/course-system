@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.rainng.coursesystem.dao.mapper.HomeworkMapper;
 import com.rainng.coursesystem.model.entity.RcHomeworkEntity;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
+import com.rainng.coursesystem.util.RandomNumUtil;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class RcHomeworkService extends BaseService{
     }
 
     public ResultVO<String> addHomework(@RequestBody RcHomeworkEntity entity){
-        entity.setHomeworkId(Integer.valueOf(UUID.randomUUID().toString().substring(0,15)));
+        entity.setHomeworkId(RandomNumUtil.getRandomNum());
         entity.setCreateTime(new Date());
         entity.setUpdateTime(new Date());
         homeworkMapper.insert(entity);

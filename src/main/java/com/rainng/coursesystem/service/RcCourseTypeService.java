@@ -5,11 +5,13 @@ import com.rainng.coursesystem.dao.mapper.CourseTypeMapper;
 import com.rainng.coursesystem.model.entity.RcCourseTypeEntity;
 import com.rainng.coursesystem.model.vo.response.CourseTypeSearchResVO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
+import com.rainng.coursesystem.util.RandomNumUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,7 +27,10 @@ public class RcCourseTypeService extends BaseService {
     private CourseTypeMapper courseTypeMapper;
 
     public ResultVO<String> addCourseType(RcCourseTypeEntity entity) {
-        entity.setTypeId(Integer.valueOf(UUID.randomUUID().toString().substring(0,8)));
+
+        entity.setTypeId(RandomNumUtil.getRandomNum());
+        entity.setCreateTime(new Date());
+        entity.setUpdatTime(new Date());
         courseTypeMapper.insert(entity);
         return result("新增课程类型成功！");
     }

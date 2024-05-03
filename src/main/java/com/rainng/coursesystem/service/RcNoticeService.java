@@ -5,6 +5,7 @@ import com.rainng.coursesystem.dao.mapper.NoticeMapper;
 import com.rainng.coursesystem.model.entity.RcNoticeEntity;
 import com.rainng.coursesystem.model.vo.request.NoticeSearchReqVO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
+import com.rainng.coursesystem.util.RandomNumUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,7 @@ public class RcNoticeService extends BaseService{
     }
 
     public ResultVO<String> addNotice(RcNoticeEntity entity){
-        entity.setNoticeId(Integer.valueOf(UUID.randomUUID().toString().substring(0,15)));
+        entity.setNoticeId(RandomNumUtil.getRandomNum());
         entity.setCreateTime(new Date());
         entity.setUpdateTime(new Date());
         noticeMapper.insert(entity);

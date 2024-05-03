@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.rainng.coursesystem.dao.mapper.ProcessMapper;
 import com.rainng.coursesystem.model.entity.RcProcessEntity;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
+import com.rainng.coursesystem.util.RandomNumUtil;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class RcProcessService extends BaseService {
     @ApiModelProperty("新增学习进度")
     @PostMapping("/add")
     public ResultVO<String> addProcess(@RequestBody RcProcessEntity entity) {
-        entity.setProcessId(Integer.valueOf(UUID.randomUUID().toString().substring(0,15)));
+        entity.setProcessId(RandomNumUtil.getRandomNum());
         processMapper.insert(entity);
         return result("新增学习进度成功！");
     }

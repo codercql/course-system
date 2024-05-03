@@ -7,6 +7,7 @@ import com.rainng.coursesystem.model.entity.RcCourseEntity;
 import com.rainng.coursesystem.model.vo.request.CourseSearchReqVO;
 import com.rainng.coursesystem.model.vo.response.CourseSearchResVO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
+import com.rainng.coursesystem.util.RandomNumUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,6 +54,7 @@ public class RcCourseService extends BaseService{
         if (rcCourseMapper.selectById(entity.getCourseId()) != null) {
             return failedResult("课程Id: " + entity.getCourseId() + "已存在!");
         }
+        entity.setCourseId(RandomNumUtil.getRandomNum());
         entity.setCreateTime(new Date());
         entity.setUpdateTime(new Date());
         rcCourseMapper.insert(entity);
