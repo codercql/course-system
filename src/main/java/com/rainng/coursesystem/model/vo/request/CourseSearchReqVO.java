@@ -1,5 +1,7 @@
 package com.rainng.coursesystem.model.vo.request;
 
+import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -10,7 +12,12 @@ import lombok.Data;
  **/
 @Data
 public class CourseSearchReqVO {
+    @ApiModelProperty("课程名，模糊查询")
     private String courseName;
 
-    private String courseTeacherId;
+    @ApiModelProperty("分类id")
+    private String typeId;
+
+    @ApiModelProperty("分页参数")
+    private PageInfo<CourseSearchReqVO> pageParam;
 }

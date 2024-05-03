@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Student
 @RequestMapping("/student/exam")
-@RestController
+@RestController("student_exam")
 public class ExamController extends BaseController {
     private final ExamService service;
 

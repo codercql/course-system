@@ -93,4 +93,6 @@
     <select id="getCoverByCourseId" resultType="_byte[]">
         select cover from rc_course where course_id #{courseId}
     </select>
+
+
 </mapper>

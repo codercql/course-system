@@ -1,5 +1,6 @@
 package com.rainng.coursesystem.manager.admin;
 
+import com.github.pagehelper.PageInfo;
 import com.rainng.coursesystem.dao.CourseDAO;
 import com.rainng.coursesystem.dao.StudentCourseDAO;
 import com.rainng.coursesystem.dao.TeacherDAO;
@@ -7,6 +8,8 @@ import com.rainng.coursesystem.manager.BaseManager;
 import com.rainng.coursesystem.model.bo.CourseItemBO;
 import com.rainng.coursesystem.model.entity.CourseEntity;
 import com.rainng.coursesystem.model.entity.TeacherEntity;
+import com.rainng.coursesystem.model.vo.request.CourseSearchReqVO;
+import com.rainng.coursesystem.model.vo.response.CourseSearchResVO;
 import com.rainng.coursesystem.model.vo.response.IdNameVO;
 import org.springframework.stereotype.Component;
 
@@ -62,7 +65,7 @@ public class CourseManager extends BaseManager {
         List<IdNameVO> voList = new ArrayList<>();
         List<CourseEntity> entityList = courseDAO.listName();
         for (CourseEntity entity : entityList) {
-            voList.add(new IdNameVO(entity.getId(), entity.getName()));
+//            voList.add(new IdNameVO(entity.getId(), entity.getName()));
         }
 
         return voList;

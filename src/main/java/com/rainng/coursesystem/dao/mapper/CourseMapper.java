@@ -7,8 +7,6 @@ import com.rainng.coursesystem.model.bo.StudentCourseSelectItemBO;
 import com.rainng.coursesystem.model.entity.CourseEntity;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public interface CourseMapper extends BaseMapper<CourseEntity> {
     Integer count(String departmentName, String teacherName, String name);

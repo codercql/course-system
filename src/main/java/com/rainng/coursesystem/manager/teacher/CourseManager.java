@@ -2,6 +2,7 @@ package com.rainng.coursesystem.manager.teacher;
 
 import com.rainng.coursesystem.dao.TeacherDAO;
 import com.rainng.coursesystem.manager.BaseManager;
+import com.rainng.coursesystem.model.entity.RcCourseEntity;
 import com.rainng.coursesystem.model.vo.response.table.TeacherCourseItemVO;
 import org.springframework.stereotype.Component;
 

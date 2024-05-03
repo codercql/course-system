@@ -1,10 +1,14 @@
 package com.rainng.coursesystem.service.admin;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.rainng.coursesystem.dao.mapper.CourseMapper;
 import com.rainng.coursesystem.manager.admin.CourseManager;
 import com.rainng.coursesystem.model.bo.CourseItemBO;
 import com.rainng.coursesystem.model.entity.CourseEntity;
 import com.rainng.coursesystem.model.vo.request.CourseSearchReqVO;
+import com.rainng.coursesystem.model.vo.response.CourseSearchResVO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.model.vo.response.table.CourseItemVO;
 import com.rainng.coursesystem.service.BaseService;
@@ -108,7 +112,7 @@ public class CourseService extends BaseService {
         return result("添加成功");
     }
 
-    public ResultVO<String> getCoverByCourseId(Integer courseId){
+    public ResultVO<String> getCoverByCourseId(Integer courseId) {
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (requestAttributes == null) {
             return failedResult("requestAttributes == null");
@@ -130,5 +134,7 @@ public class CourseService extends BaseService {
     public ResultVO listName() {
         return result(manager.listName());
     }
+
+
 
 }

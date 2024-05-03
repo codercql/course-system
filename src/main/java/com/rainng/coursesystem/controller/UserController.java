@@ -3,6 +3,7 @@ package com.rainng.coursesystem.controller;
 import com.rainng.coursesystem.model.vo.request.LoginVO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,11 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user")
 @RestController
 public class UserController extends BaseController {
-    private final UserService service;
+    @Autowired
+    private UserService service;
 
-    public UserController(UserService service) {
-        this.service = service;
-    }
+//    public UserController(UserService service) {
+//        this.service = service;
+//    }
 
     @PostMapping("/login")
     public ResultVO login(@Validated @RequestBody LoginVO loginVO) {

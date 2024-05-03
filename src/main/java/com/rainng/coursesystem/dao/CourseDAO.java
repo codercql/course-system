@@ -2,10 +2,13 @@ package com.rainng.coursesystem.dao;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.pagehelper.PageInfo;
 import com.rainng.coursesystem.dao.mapper.CourseMapper;
 import com.rainng.coursesystem.model.bo.CourseItemBO;
 import com.rainng.coursesystem.model.bo.StudentCourseSelectItemBO;
 import com.rainng.coursesystem.model.entity.CourseEntity;
+import com.rainng.coursesystem.model.vo.request.CourseSearchReqVO;
+import com.rainng.coursesystem.model.vo.response.CourseSearchResVO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

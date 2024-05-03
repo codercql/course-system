@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rainng.coursesystem.dao.mapper.RcCourseMapper">
+    <select id="getMainPage" resultType="com.rainng.coursesystem.model.vo.response.CourseSearchResVO">
+        select a.*,b.type_name
+        from rc_course a
+        left join rc_course_type b
+        on a.type_id = b.type_id
+        <where>
+            <if test="courseName != null and courseName != ''">
+                a.course_name like concat('%',#{courseName},'%')
+            </if>
+            <if test="typeId != null and typeId != ''">
+                a.type_id = #{typeId}
+            </if>
+        </where>
+    </select>
+
+</mapper>
