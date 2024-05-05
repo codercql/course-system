@@ -63,10 +63,7 @@ CREATE TABLE `rc_course` (
   `course_homework_id` int(16) DEFAULT NULL,
   `course_start_time` datetime DEFAULT NULL,
   `course_end_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`course_id`) USING BTREE,
-  KEY `fk_course_teacher_id` (`course_teacher_id`) USING BTREE,
-  KEY `idx_course_name` (`course_name`) USING BTREE,
-  CONSTRAINT `fk_course_teacher_id` FOREIGN KEY (`course_teacher_id`) REFERENCES `rc_teacher` (`teacher_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  PRIMARY KEY (`course_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
@@ -158,11 +155,7 @@ CREATE TABLE `rc_student_course` (
   `sc_exam_score` int(10) unsigned DEFAULT NULL COMMENT '期末测试分',
   `sc_score` int(10) unsigned DEFAULT NULL COMMENT '总成绩',
   `progress` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '学习进度',
-  PRIMARY KEY (`sc_id`) USING BTREE,
-  KEY `fk_sc_course_id` (`sc_course_id`) USING BTREE,
-  KEY `fk_sc_student_id` (`sc_student_id`) USING BTREE,
-  CONSTRAINT `fk_sc_course_id` FOREIGN KEY (`sc_course_id`) REFERENCES `rc_course` (`course_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fk_sc_student_id` FOREIGN KEY (`sc_student_id`) REFERENCES `rc_student` (`student_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  PRIMARY KEY (`sc_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 DROP TABLE IF EXISTS `rc_student`;
@@ -176,11 +169,7 @@ CREATE TABLE `rc_student` (
   `student_birthday` datetime DEFAULT NULL COMMENT '生日',
   `student_sex` tinyint(1) unsigned NOT NULL COMMENT '性别',
   `student_last_login_time` datetime DEFAULT NULL COMMENT '最近登录时间',
-  PRIMARY KEY (`student_id`) USING BTREE,
-  UNIQUE KEY `idx_student_number` (`student_number`) USING BTREE,
-  KEY `fk_student_class_id` (`student_class_id`) USING BTREE,
-  KEY `idx_student_name` (`student_name`) USING BTREE,
-  CONSTRAINT `fk_student_class_id` FOREIGN KEY (`student_class_id`) REFERENCES `rc_class` (`class_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  PRIMARY KEY (`student_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
@@ -225,7 +214,7 @@ CREATE TABLE `rc_teacher` (
   `experirence` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '教学经验',
   `level` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '职称',
   `introduction` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '教师简介',
-  PRIMARY KEY (`teacher_id`) USING BTREE
+  PRIMARY KEY (`teacher_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
