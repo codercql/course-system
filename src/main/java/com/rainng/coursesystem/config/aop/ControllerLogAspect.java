@@ -6,6 +6,7 @@ import com.rainng.coursesystem.model.bo.LoginStatusBO;
 import com.rainng.coursesystem.model.constant.HttpStatusCode;
 import com.rainng.coursesystem.model.entity.mongo.LogEntity;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -18,6 +19,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@Slf4j
 @Aspect
 @Component
 public class ControllerLogAspect {
@@ -42,16 +44,17 @@ public class ControllerLogAspect {
     public Object around(ProceedingJoinPoint joinPoint) {
         long startTime = System.currentTimeMillis();
 
-        LogEntity log = new LogEntity();
-        logRequest(log, joinPoint);
+        LogEntity logEntity = new LogEntity();
+        logRequest(logEntity, joinPoint);
 
         Object result = null;
         try {
             result = joinPoint.proceed();
         } catch (Throwable ex) {
-            log.setException(ex.getMessage());
+            log.error(ex.getMessage());
+            logEntity.setException(ex.getMessage());
             setResponseCode(HttpStatusCode.INTERNAL_SERVER_ERROR);
-            result = new ResultVO(ResultVO.SERVER_ERROR, "未知错误", null);
+            result = new ResultVO(ResultVO.SERVER_ERROR, ex.getMessage(), null);
         }
 
 //        logResult(log, result, System.currentTimeMillis() - startTime);
