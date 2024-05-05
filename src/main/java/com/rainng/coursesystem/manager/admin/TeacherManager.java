@@ -62,7 +62,7 @@ public class TeacherManager extends BaseManager {
         List<IdNameVO> voList = new ArrayList<>();
         List<TeacherEntity> entityList = teacherDAO.listName();
         for (TeacherEntity entity : entityList) {
-            voList.add(new IdNameVO(entity.getId(), entity.getName()));
+            voList.add(new IdNameVO(entity.getTeacherId(), entity.getTeacherName()));
         }
 
         return voList;

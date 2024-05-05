@@ -40,7 +40,7 @@ public class AuthInfoBO {
         if (entity == null) {
             return null;
         }
-        return new AuthInfoBO(entity.getId(), entity.getNumber(), entity.getPassword(), UserType.TEACHER);
+        return new AuthInfoBO(entity.getTeacherId(), entity.getTeacherName(), entity.getTeacherPassword(), UserType.TEACHER);
     }
 
     public static AuthInfoBO fromAdmin(AdminEntity entity) {

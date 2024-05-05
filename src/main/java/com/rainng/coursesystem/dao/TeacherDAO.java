@@ -49,21 +49,21 @@ public class TeacherDAO extends BaseDAO {
 
     public TeacherEntity getByNumber(String number) {
         LambdaQueryWrapper<TeacherEntity> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(TeacherEntity::getNumber, number);
+//        wrapper.eq(TeacherEntity::getNumber, number);
 
         return mapper.selectOne(wrapper);
     }
 
     public Integer countByDepartmentId(Integer departmentId) {
         LambdaQueryWrapper<TeacherEntity> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(TeacherEntity::getDepartmentId, departmentId);
+//        wrapper.eq(TeacherEntity::getDepartmentId, departmentId);
 
         return mapper.selectCount(wrapper);
     }
 
     public List<TeacherEntity> listName() {
         LambdaQueryWrapper<TeacherEntity> wrapper = new LambdaQueryWrapper<>();
-        wrapper.select(TeacherEntity::getId, TeacherEntity::getName);
+        wrapper.select(TeacherEntity::getTeacherId, TeacherEntity::getTeacherName);
 
         return mapper.selectList(wrapper);
     }

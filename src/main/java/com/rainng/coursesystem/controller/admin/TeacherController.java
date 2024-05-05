@@ -8,9 +8,9 @@ import com.rainng.coursesystem.service.admin.TeacherService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@Admin(Admin.TEACHER_MANAGE)
+//@Admin(Admin.TEACHER_MANAGE)
 @RequestMapping("/admin/teacher")
-//@RestController
+@RestController
 public class TeacherController extends BaseController {
     private final TeacherService service;
 

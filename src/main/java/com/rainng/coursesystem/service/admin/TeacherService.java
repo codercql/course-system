@@ -5,6 +5,7 @@ import com.rainng.coursesystem.model.entity.TeacherEntity;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.service.BaseService;
 import com.rainng.coursesystem.service.UserService;
+import com.rainng.coursesystem.util.RandomNumUtil;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,24 +32,23 @@ public class TeacherService extends BaseService {
             return failedResult("教师Id: " + id + "不存在!");
         }
 
-        entity.setPassword("");
-
+        entity.setTeacherPassword("");
         return result(entity);
     }
 
     public ResultVO update(TeacherEntity entity) {
-        TeacherEntity originEntity = manager.get(entity.getId());
+        TeacherEntity originEntity = manager.get(entity.getTeacherId());
         if (originEntity == null) {
-            return failedResult("教师Id: " + entity.getId() + "不存在!");
+            return failedResult("教师Id: " + entity.getTeacherId() + "不存在!");
         }
-        if (manager.getDepartmentById(entity.getDepartmentId()) == null) {
-            return failedResult("所属系Id: " + entity.getDepartmentId() + "不存在!");
-        }
+//        if (manager.getDepartmentById(entity.getDepartmentId()) == null) {
+//            return failedResult("所属系Id: " + entity.getDepartmentId() + "不存在!");
+//        }
 
-        if (entity.getPassword().equals("")) {
-            entity.setPassword(originEntity.getPassword());
+        if (entity.getTeacherPassword().equals("")) {
+            entity.setTeacherPassword(originEntity.getTeacherPassword());
         } else {
-            entity.setPassword(userService.computePasswordHash(entity.getPassword()));
+            entity.setTeacherPassword(userService.computePasswordHash(entity.getTeacherPassword()));
         }
 
         manager.update(entity);
@@ -59,23 +59,17 @@ public class TeacherService extends BaseService {
         if (manager.get(id) == null) {
             return failedResult("教师Id: " + id + "不存在!");
         }
-        if (manager.hasCourse(id)) {
-            return failedResult("此教师还有教授的课程未被删除");
-        }
+//        if (manager.hasCourse(id)) {
+//            return failedResult("此教师还有教授的课程未被删除");
+//        }
 
         manager.delete(id);
         return result("删除成功");
     }
 
     public ResultVO create(TeacherEntity entity) {
-        if (manager.get(entity.getId()) != null) {
-            return failedResult("教师Id: " + entity.getId() + "已存在!");
-        }
-        if (manager.getDepartmentById(entity.getDepartmentId()) == null) {
-            return failedResult("所属系Id: " + entity.getDepartmentId() + "不存在!");
-        }
-
-        entity.setPassword(userService.computePasswordHash(entity.getPassword()));
+        entity.setTeacherId(RandomNumUtil.getRandomNum());
+        entity.setTeacherPassword(userService.computePasswordHash(entity.getTeacherPassword()));
 
         manager.create(entity);
         return result("添加成功");
