@@ -18,7 +18,7 @@ import java.io.IOException;
 
 @Teacher
 @RequestMapping("/teacher/course")
-@RestController("teacher_courseController")
+//@RestController("teacher_courseController")
 public class CourseController extends BaseController {
     private final CourseService service;
 

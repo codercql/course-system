@@ -8,7 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/option")
-@RestController
+//@RestController
 public class OptionController extends BaseController {
     private final OptionService service;
 

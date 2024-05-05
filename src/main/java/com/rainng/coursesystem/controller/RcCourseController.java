@@ -35,7 +35,7 @@ public class RcCourseController extends BaseController {
     private RcCourseService rcCourseService;
 
 
-    @ApiModelProperty("课程首页查询接口")
+    @ApiOperation("课程首页查询接口")
     @PostMapping("/getMainPage")
     public ResultVO<PageInfo<CourseSearchResVO>> getMainPage(@RequestBody CourseSearchReqVO vo) {
         return rcCourseService.getMainPage(vo);

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Student
 @RequestMapping("/student/timetable")
-@RestController("student_timeTableController")
+//@RestController("student_timeTableController")
 public class TimetableController extends BaseController {
     private final TimetableService service;
 

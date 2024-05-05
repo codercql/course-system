@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Admin(Admin.ADMIN_MANAGE)
 @RequestMapping("/admin/admin")
-@RestController
+//@RestController
 public class AdminController extends BaseController {
     private final AdminService service;
 

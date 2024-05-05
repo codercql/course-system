@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Student
 @RequestMapping("/student/info")
-@RestController
+//@RestController
 public class InfoController extends BaseController {
     private final InfoService service;
 

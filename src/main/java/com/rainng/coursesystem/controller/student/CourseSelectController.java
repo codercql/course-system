@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Api("学生课程管理")
 @Student
 @RequestMapping("/student/course/select")
-@RestController
+//@RestController
 public class CourseSelectController extends BaseController {
     private final CourseSelectService service;
 

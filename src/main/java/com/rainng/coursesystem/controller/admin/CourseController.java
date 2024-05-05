@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @Api("课程管理")
 @Admin(Admin.COURSE_MANAGE)
 @RequestMapping("/admin/course")
-@RestController("admin_courseController")
+//@RestController("admin_courseController")
 public class CourseController extends BaseController {
     private final CourseService service;
 

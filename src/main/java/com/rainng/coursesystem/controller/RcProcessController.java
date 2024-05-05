@@ -5,6 +5,7 @@ import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.service.RcProcessService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,19 +25,19 @@ public class RcProcessController {
     private RcProcessService rcProcessService;
 
 
-    @ApiModelProperty("通过选课id查询学习进度")
+    @ApiOperation("通过选课id查询学习进度")
     @PostMapping("/getProcessByScId")
     public ResultVO<RcProcessEntity> getProcessByScId(@RequestParam("scId") Integer scId) {
         return rcProcessService.getProcessByScId(scId);
     }
 
-    @ApiModelProperty("新增学习进度")
+    @ApiOperation("新增学习进度")
     @PostMapping("/add")
     public ResultVO<String> addProcess(@RequestBody RcProcessEntity entity){
         return rcProcessService.addProcess(entity);
     }
 
-    @ApiModelProperty("更新学习进度")
+    @ApiOperation("更新学习进度")
     @PostMapping("/update")
     public ResultVO<String> updateProcess(@RequestBody RcProcessEntity entity){
         return rcProcessService.updateProcess(entity);

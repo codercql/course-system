@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Admin(Admin.DEPARTMENT_MANAGE)
 @RequestMapping("/admin/department")
-@RestController
+//@RestController
 public class DepartmentController extends BaseController {
     private final DepartmentService service;
 

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Admin(Admin.STUDENT_COURSE_MANAGE)
 @RequestMapping("/admin/student/course")
-@RestController
+//@RestController
 public class StudentCourseController extends BaseController {
     private final StudentCourseService service;
 
