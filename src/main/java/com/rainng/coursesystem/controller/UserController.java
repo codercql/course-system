@@ -37,4 +37,12 @@ public class UserController extends BaseController {
     public ResultVO logout() {
         return service.logout();
     }
+
+    @RequestMapping("/signUp")
+    public ResultVO signUp(@Validated @RequestBody LoginVO loginVO){
+        String username = loginVO.getUsername();
+        String password = loginVO.getPassword();
+        Integer userType = loginVO.getUserType();
+        return service.signUp(username, password, userType);
+    }
 }
