@@ -1,6 +1,5 @@
 package com.rainng.coursesystem.service.student;
 
-import com.rainng.coursesystem.manager.OptionManager;
 import com.rainng.coursesystem.manager.student.CourseSelectManager;
 import com.rainng.coursesystem.model.bo.StudentCourseSelectItemBO;
 import com.rainng.coursesystem.model.entity.CourseEntity;
@@ -19,12 +18,10 @@ import java.util.List;
 @Service
 public class CourseSelectService extends BaseService {
     private final CourseSelectManager manager;
-    private final OptionManager optionManager;
     private final LessonTimeConverter lessonTimeConverter;
 
-    public CourseSelectService(CourseSelectManager manager, OptionManager optionManager, LessonTimeConverter lessonTimeConverter) {
+    public CourseSelectService(CourseSelectManager manager, LessonTimeConverter lessonTimeConverter) {
         this.manager = manager;
-        this.optionManager = optionManager;
         this.lessonTimeConverter = lessonTimeConverter;
     }
 
@@ -52,9 +49,9 @@ public class CourseSelectService extends BaseService {
     public ResultVO create(Integer courseId) {
         Integer studentId = getUserId();
 
-        if (!optionManager.getAllowStudentSelect()) {
-            return failedResult("现在不是选课时间!");
-        }
+//        if (!optionManager.getAllowStudentSelect()) {
+//            return failedResult("现在不是选课时间!");
+//        }
         StudentEntity student = manager.getStudentById(studentId);
         CourseEntity course = manager.getCourseById(courseId);
         if (student == null) {

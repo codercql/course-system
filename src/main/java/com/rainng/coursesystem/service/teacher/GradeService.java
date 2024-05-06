@@ -1,6 +1,5 @@
 package com.rainng.coursesystem.service.teacher;
 
-import com.rainng.coursesystem.manager.OptionManager;
 import com.rainng.coursesystem.manager.teacher.GradeManager;
 import com.rainng.coursesystem.model.entity.StudentCourseEntity;
 import com.rainng.coursesystem.model.vo.TeacherGradeVO;
@@ -12,11 +11,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class GradeService extends BaseService {
     private final GradeManager manager;
-    private final OptionManager optionManager;
 
-    public GradeService(GradeManager manager, OptionManager optionManager) {
+    public GradeService(GradeManager manager) {
         this.manager = manager;
-        this.optionManager = optionManager;
     }
 
     public ResultVO getPageCount(String courseName, String studentName) {
@@ -30,9 +27,9 @@ public class GradeService extends BaseService {
     }
 
     public ResultVO update(TeacherGradeVO vo) {
-        if (!optionManager.getAllowTeacherGrade()) {
-            return failedResult("现在不是打分时间!");
-        }
+//        if (!optionManager.getAllowTeacherGrade()) {
+//            return failedResult("现在不是打分时间!");
+//        }
 
         Integer teacherId = getUserId();
         StudentCourseEntity studentCourse = manager.getStudentCourseById(vo.getStudentCourseId());
@@ -50,9 +47,9 @@ public class GradeService extends BaseService {
     }
 
     public ResultVO get(Integer studentCourseId) {
-        if (!optionManager.getAllowTeacherGrade()) {
-            return failedResult("现在不是打分时间!");
-        }
+//        if (!optionManager.getAllowTeacherGrade()) {
+//            return failedResult("现在不是打分时间!");
+//        }
 
         Integer teacherId = getUserId();
         StudentCourseEntity studentCourse = manager.getStudentCourseById(studentCourseId);

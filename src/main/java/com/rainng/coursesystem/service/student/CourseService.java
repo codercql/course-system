@@ -1,6 +1,5 @@
 package com.rainng.coursesystem.service.student;
 
-import com.rainng.coursesystem.manager.OptionManager;
 import com.rainng.coursesystem.manager.student.CourseManager;
 import com.rainng.coursesystem.model.entity.StudentCourseEntity;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
@@ -10,11 +9,9 @@ import org.springframework.stereotype.Service;
 @Service("student_courseService")
 public class CourseService extends BaseService {
     private final CourseManager manager;
-    private final OptionManager optionManager;
 
-    public CourseService(CourseManager manager, OptionManager optionManager) {
+    public CourseService(CourseManager manager) {
         this.manager = manager;
-        this.optionManager = optionManager;
     }
 
     public ResultVO list() {
@@ -24,9 +21,9 @@ public class CourseService extends BaseService {
 
     public ResultVO delete(Integer studentCourseId) {
         Integer studentId = getUserId();
-        if (!optionManager.getAllowStudentSelect()) {
-            return failedResult("现在不是选课退课时间!");
-        }
+//        if (!optionManager.getAllowStudentSelect()) {
+//            return failedResult("现在不是选课退课时间!");
+//        }
         StudentCourseEntity studentCourse = manager.getStudentCourseById(studentCourseId);
         if (studentCourse == null) {
             return failedResult("学生选课Id:" + studentCourseId + "不存在");

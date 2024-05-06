@@ -1,10 +1,7 @@
 package com.rainng.coursesystem.config.aop;
 
-import com.rainng.coursesystem.dao.mongo.LogDAO;
 import com.rainng.coursesystem.manager.LoginStatusManager;
-import com.rainng.coursesystem.model.bo.LoginStatusBO;
 import com.rainng.coursesystem.model.constant.HttpStatusCode;
-import com.rainng.coursesystem.model.entity.mongo.LogEntity;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -28,11 +25,9 @@ public class ControllerLogAspect {
     private static final String CONTROLLER_POSTFIX = "Controller.";
 
     private final LoginStatusManager loginStatusManager;
-    private final LogDAO logDAO;
 
-    public ControllerLogAspect(LoginStatusManager loginStatusManager, LogDAO logDAO) {
+    public ControllerLogAspect(LoginStatusManager loginStatusManager) {
         this.loginStatusManager = loginStatusManager;
-        this.logDAO = logDAO;
     }
 
     @Pointcut("execution(public * com.rainng.coursesystem.controller..*.*(..)) || " +
@@ -44,15 +39,11 @@ public class ControllerLogAspect {
     public Object around(ProceedingJoinPoint joinPoint) {
         long startTime = System.currentTimeMillis();
 
-        LogEntity logEntity = new LogEntity();
-        logRequest(logEntity, joinPoint);
-
         Object result = null;
         try {
             result = joinPoint.proceed();
         } catch (Throwable ex) {
             log.error(ex.getMessage());
-            logEntity.setException(ex.getMessage());
             setResponseCode(HttpStatusCode.INTERNAL_SERVER_ERROR);
             result = new ResultVO(ResultVO.SERVER_ERROR, ex.getMessage(), null);
         }
@@ -63,19 +54,8 @@ public class ControllerLogAspect {
         return result;
     }
 
-    private void logRequest(LogEntity logEntity, ProceedingJoinPoint joinPoint) {
+    private void logRequest(ProceedingJoinPoint joinPoint) {
         HttpServletRequest request = getRequest();
-        if (request != null) {
-            LoginStatusBO loginStatus = loginStatusManager.getLoginStatus(request.getSession());
-            String requestUrl = request.getRequestURI();
-            if (request.getQueryString() != null) {
-                requestUrl += "?" + request.getQueryString();
-            }
-
-            logEntity.setRequestUrl(requestUrl);
-            logEntity.setUserId(loginStatus.getUserId());
-            logEntity.setUserType(loginStatus.getUserType());
-        }
 
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         String businessTarget = signature.getDeclaringTypeName() + "." + signature.getMethod().getName();
@@ -83,18 +63,14 @@ public class ControllerLogAspect {
                 .replace(PACKAGE_PREFIX, "")
                 .replace(CONTROLLER_POSTFIX, ".")
                 .replace(PACKAGE_PREFIX2, "");
-        logEntity.setBusinessTarget(businessTarget);
     }
 
-    private void logResult(LogEntity log, Object result, long executeTime) {
+    private void logResult(Object result, long executeTime) {
         if (!(result instanceof ResultVO)) {
             return;
         }
 
         ResultVO resultVO = (ResultVO) result;
-        log.setResultCode(resultVO.getCode());
-        log.setMessage(resultVO.getMessage());
-        log.setExecuteTime(executeTime);
     }
 
     private HttpServletRequest getRequest() {
