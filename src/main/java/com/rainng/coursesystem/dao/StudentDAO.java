@@ -55,7 +55,7 @@ public class StudentDAO extends BaseDAO {
 
     public Integer countByClassId(Integer id) {
         LambdaQueryWrapper<StudentEntity> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(StudentEntity::getClassId, id);
+//        wrapper.eq(StudentEntity::getClassId, id);
 
         return mapper.selectCount(wrapper);
     }

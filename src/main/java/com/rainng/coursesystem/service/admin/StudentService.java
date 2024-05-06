@@ -41,9 +41,9 @@ public class StudentService extends BaseService {
         if (origin == null) {
             return failedResult("学生Id: " + entity.getId() + "不存在!");
         }
-        if (manager.getClassById(entity.getClassId()) == null) {
-            return failedResult("所属班级Id: " + entity.getClassId() + "不存在!");
-        }
+//        if (manager.getClassById(entity.getClassId()) == null) {
+//            return failedResult("所属班级Id: " + entity.getClassId() + "不存在!");
+//        }
 
         if (entity.getPassword().equals("")) {
             entity.setPassword(origin.getPassword());
@@ -71,9 +71,9 @@ public class StudentService extends BaseService {
         if (manager.get(entity.getId()) != null) {
             return failedResult("学生Id: " + entity.getId() + "已存在!");
         }
-        if (manager.getClassById(entity.getClassId()) == null) {
-            return failedResult("所属班级Id: " + entity.getClassId() + "不存在!");
-        }
+//        if (manager.getClassById(entity.getClassId()) == null) {
+//            return failedResult("所属班级Id: " + entity.getClassId() + "不存在!");
+//        }
 
         manager.create(entity);
         return result("添加成功");

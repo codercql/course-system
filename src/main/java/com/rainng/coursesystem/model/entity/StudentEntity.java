@@ -29,9 +29,6 @@ public class StudentEntity {
     @TableId(value = ID, type = IdType.AUTO)
     private Integer id;
 
-    @NotNull(message = "必须选择所属班级")
-    @TableField(CLASS_ID)
-    private Integer classId;
 
     @Length(min = 12, max = 12, message = "学号长度必须为12位")
     @TableField(NUMBER)
@@ -45,19 +42,13 @@ public class StudentEntity {
     @TableField(PASSWORD)
     private String password;
 
-    @Email(message = "邮箱格式不正确")
-    @TableField(value = EMAIL, updateStrategy = FieldStrategy.IGNORED)
-    private String email;
+//    @Email(message = "邮箱格式不正确")
+//    @TableField(value = EMAIL, updateStrategy = FieldStrategy.IGNORED)
+//    private String email;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @TableField(value = BIRTHDAY, updateStrategy = FieldStrategy.IGNORED)
-    private Date birthday;
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    @JsonFormat(pattern = "yyyy-MM-dd")
+//    @TableField(value = BIRTHDAY, updateStrategy = FieldStrategy.IGNORED)
+//    private Date birthday;
 
-    @Range(min = 0, max = 1)
-    @TableField(SEX)
-    private Integer sex;
-
-    @TableField(LAST_LOGIN_TIME)
-    private Date lastLoginTime;
 }

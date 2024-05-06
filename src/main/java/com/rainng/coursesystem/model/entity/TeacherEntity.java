@@ -46,6 +46,10 @@ public class TeacherEntity {
     @TableId
     private Integer teacherId;
     /**
+     * 教师工号
+     */
+    private String teacherNumber;
+    /**
      * 教师姓名
      */
     private String teacherName;

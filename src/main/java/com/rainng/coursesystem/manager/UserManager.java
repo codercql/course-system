@@ -40,7 +40,7 @@ public class UserManager extends BaseManager {
             return;
         }
 
-        entity.setLastLoginTime(new Date());
+//        entity.setLastLoginTime(new Date());
         studentDAO.update(entity);
     }
 }

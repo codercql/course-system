@@ -12,13 +12,11 @@ import com.rainng.coursesystem.model.constant.UserType;
 import com.rainng.coursesystem.model.entity.AdminEntity;
 import com.rainng.coursesystem.model.entity.StudentEntity;
 import com.rainng.coursesystem.model.entity.TeacherEntity;
+import com.rainng.coursesystem.model.vo.request.SignUpVO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
-import com.rainng.coursesystem.service.admin.AdminService;
-import com.rainng.coursesystem.service.admin.StudentService;
 import com.rainng.coursesystem.util.Md5Encrypt;
 import com.rainng.coursesystem.util.RandomNumUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -56,9 +54,9 @@ public class UserService extends BaseService {
             return failedResult("密码错误");
         }
 
-        if (authInfo.getUserType().equals(UserType.STUDENT)) {
-            manager.updateStudentLastLoginTime(username);
-        }
+//        if (authInfo.getUserType().equals(UserType.STUDENT)) {
+//            manager.updateStudentLastLoginTime(username);
+//        }
 
         LoginStatusBO statusBO = LoginStatusBO.fromAuthInfo(authInfo);
         loginStatusManager.setLoginStatus(session, statusBO);
@@ -81,31 +79,42 @@ public class UserService extends BaseService {
         return md5Encrypt.computeHexString(md5 + PASSWORD_SALT);
     }
 
-    public ResultVO signUp(String username, String password, Integer userType){
+    public ResultVO signUp(SignUpVO signUpVO) {
+        Integer userType = signUpVO.getUserType();
+
         if (userType == UserType.STUDENT) {
 
-            List<StudentEntity> list = studentMapper.selectList(new LambdaQueryWrapper<StudentEntity>().eq(StudentEntity::getNumber, username));
-            if(list.size()>0){
-                return failedResult("用户名已存在");
+            List<StudentEntity> list = studentMapper.selectList(new LambdaQueryWrapper<StudentEntity>().eq(StudentEntity::getNumber, signUpVO.getNumber()));
+            if (list.size() > 0) {
+                return failedResult("用户已存在");
             }
             StudentEntity studentEntity = new StudentEntity();
             studentEntity.setId(RandomNumUtil.getRandomNum());
-            studentEntity.setClassId(RandomNumUtil.getRandomNum());
-            studentEntity.setName(username);
-            studentEntity.setNumber(username);
-            studentEntity.setPassword(computePasswordHash(password));
-            studentEntity.setSex(0);
+            studentEntity.setName(signUpVO.getUsername());
+            studentEntity.setNumber(signUpVO.getNumber());
+            studentEntity.setPassword(computePasswordHash(signUpVO.getPassword()));
             studentMapper.insert(studentEntity);
         } else if (userType == UserType.TEACHER) {
-            List<TeacherEntity> teacherEntities = teacherMapper.selectList(new LambdaQueryWrapper<TeacherEntity>().eq(TeacherEntity::getTeacherId, username));
-            if(teacherEntities.size()>0){
-                return failedResult("用户名已存在");
+            List<TeacherEntity> teacherEntities = teacherMapper.selectList(new LambdaQueryWrapper<TeacherEntity>().eq(TeacherEntity::getTeacherId, signUpVO.getNumber()));
+            if (teacherEntities.size() > 0) {
+                return failedResult("用户已存在");
             }
+            TeacherEntity teacherEntity = new TeacherEntity();
+            teacherEntity.setTeacherId(RandomNumUtil.getRandomNum());
+            teacherEntity.setTeacherName(signUpVO.getUsername());
+            teacherEntity.setTeacherNumber(signUpVO.getNumber());
+            teacherEntity.setTeacherPassword(computePasswordHash(signUpVO.getPassword()));
+            teacherMapper.insert(teacherEntity);
         } else if (userType == UserType.ADMIN) {
-            List<AdminEntity> adminEntities = adminMapper.selectList(new LambdaQueryWrapper<AdminEntity>().eq(AdminEntity::getUsername, username));
-            if(adminEntities.size()>0){
-                return failedResult("用户名已存在");
+            List<AdminEntity> adminEntities = adminMapper.selectList(new LambdaQueryWrapper<AdminEntity>().eq(AdminEntity::getUsername, signUpVO.getNumber()));
+            if (adminEntities.size() > 0) {
+                return failedResult("用户已存在");
             }
+            AdminEntity adminEntity = new AdminEntity();
+            adminEntity.setId(RandomNumUtil.getRandomNum());
+            adminEntity.setUsername(signUpVO.getUsername());
+            adminEntity.setPassword(computePasswordHash(signUpVO.getPassword()));
+            adminMapper.insert(adminEntity);
         }
         return result("已注册");
     }

@@ -49,7 +49,7 @@ public class TeacherDAO extends BaseDAO {
 
     public TeacherEntity getByNumber(String number) {
         LambdaQueryWrapper<TeacherEntity> wrapper = new LambdaQueryWrapper<>();
-//        wrapper.eq(TeacherEntity::getNumber, number);
+        wrapper.eq(TeacherEntity::getTeacherNumber, number);
 
         return mapper.selectOne(wrapper);
     }

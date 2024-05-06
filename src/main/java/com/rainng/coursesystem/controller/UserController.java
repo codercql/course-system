@@ -1,6 +1,7 @@
 package com.rainng.coursesystem.controller;
 
 import com.rainng.coursesystem.model.vo.request.LoginVO;
+import com.rainng.coursesystem.model.vo.request.SignUpVO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +39,8 @@ public class UserController extends BaseController {
         return service.logout();
     }
 
-    @RequestMapping("/signUp")
-    public ResultVO signUp(@Validated @RequestBody LoginVO loginVO){
-        String username = loginVO.getUsername();
-        String password = loginVO.getPassword();
-        Integer userType = loginVO.getUserType();
-        return service.signUp(username, password, userType);
+    @PostMapping("/signUp")
+    public ResultVO signUp(@Validated @RequestBody SignUpVO signUpVO){
+        return service.signUp(signUpVO);
     }
 }
