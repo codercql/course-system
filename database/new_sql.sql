@@ -161,72 +161,68 @@ CREATE TABLE `rc_student_course` (
 DROP TABLE IF EXISTS `rc_student`;
 CREATE TABLE `rc_student` (
   `student_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '学生Id',
-  `student_class_id` int(10) unsigned NOT NULL COMMENT '班级Id',
   `student_number` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '学号',
   `student_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '姓名',
   `student_password` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '密码',
-  `student_email` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '电子邮箱',
-  `student_birthday` datetime DEFAULT NULL COMMENT '生日',
-  `student_sex` tinyint(1) unsigned NOT NULL COMMENT '性别',
-  `student_last_login_time` datetime DEFAULT NULL COMMENT '最近登录时间',
   PRIMARY KEY (`student_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of rc_student
 -- ----------------------------
-INSERT INTO `rc_student` VALUES ('1', '1', '201711010001', '李雨轩', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', '961523404@qq.com', '1998-08-19 16:09:47', '1', '2024-04-28 15:05:48');
-INSERT INTO `rc_student` VALUES ('2', '1', '201711010002', '宋健', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, '1', '2024-04-12 22:22:30');
-INSERT INTO `rc_student` VALUES ('3', '1', '201711010003', '李同学1', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, '0', null);
-INSERT INTO `rc_student` VALUES ('4', '1', '201711010004', '李同学2', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, '0', null);
-INSERT INTO `rc_student` VALUES ('5', '1', '201711010005', '李同学3', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, '0', null);
-INSERT INTO `rc_student` VALUES ('6', '1', '201711010006', '李同学4', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, '0', null);
-INSERT INTO `rc_student` VALUES ('7', '1', '201711010007', '李同学5', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, '0', null);
-INSERT INTO `rc_student` VALUES ('8', '1', '201711010008', '李同学6', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, '0', null);
-INSERT INTO `rc_student` VALUES ('9', '1', '201711010009', '李同学7', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, '0', null);
-INSERT INTO `rc_student` VALUES ('10', '1', '201711010010', '李同学8', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, '0', null);
-INSERT INTO `rc_student` VALUES ('11', '1', '201711010011', '李同学9', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, '0', null);
-INSERT INTO `rc_student` VALUES ('12', '1', '201711010012', '张同学1', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, '1', null);
-INSERT INTO `rc_student` VALUES ('13', '1', '201711010013', '张同学2', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, '1', null);
-INSERT INTO `rc_student` VALUES ('14', '1', '201711010014', '张同学3', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, '1', null);
-INSERT INTO `rc_student` VALUES ('15', '1', '201711010015', '张同学4', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, '1', null);
-INSERT INTO `rc_student` VALUES ('16', '1', '201711010016', '张同学5', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, '1', null);
-INSERT INTO `rc_student` VALUES ('17', '1', '201711010017', '张同学6', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, '1', null);
-INSERT INTO `rc_student` VALUES ('18', '1', '201711010018', '张同学7', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, '1', null);
-INSERT INTO `rc_student` VALUES ('19', '3', '201711020001', '王同学1', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, '1', null);
-INSERT INTO `rc_student` VALUES ('20', '3', '201711020002', '王同学2', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, '1', null);
-INSERT INTO `rc_student` VALUES ('21', '3', '201711020003', '王同学3', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, '1', null);
-INSERT INTO `rc_student` VALUES ('22', '3', '201711020004', '王同学4', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, '1', null);
-INSERT INTO `rc_student` VALUES ('23', '3', '201711020005', '王同学5', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, '1', null);
-INSERT INTO `rc_student` VALUES ('24', '3', '201711020006', '王同学6', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, '1', null);
-INSERT INTO `rc_student` VALUES ('25', '3', '201711020007', '王同学7', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, '1', null);
-INSERT INTO `rc_student` VALUES ('26', '3', '201711020008', '王同学8', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, '1', null);
-INSERT INTO `rc_student` VALUES ('27', '3', '201711020009', '王同学9', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, '1', null);
-INSERT INTO `rc_student` VALUES ('28', '3', '201711020010', '王同学10', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, '1', null);
-
+INSERT INTO `rc_student` VALUES ('1', '201711010001', '李雨轩', '81a5f5a9bfde4cdcb5b9fe1f8508df2a');
+INSERT INTO `rc_student` VALUES ('2', '201711010002', '宋健', '81a5f5a9bfde4cdcb5b9fe1f8508df2a');
+INSERT INTO `rc_student` VALUES ('3', '201711010003', '李同学1', '81a5f5a9bfde4cdcb5b9fe1f8508df2a');
+INSERT INTO `rc_student` VALUES ('4', '201711010004', '李同学2', '81a5f5a9bfde4cdcb5b9fe1f8508df2a');
+INSERT INTO `rc_student` VALUES ('5', '201711010005', '李同学3', '81a5f5a9bfde4cdcb5b9fe1f8508df2a');
+INSERT INTO `rc_student` VALUES ('6', '201711010006', '李同学4', '81a5f5a9bfde4cdcb5b9fe1f8508df2a');
+INSERT INTO `rc_student` VALUES ('7', '201711010007', '李同学5', '81a5f5a9bfde4cdcb5b9fe1f8508df2a');
+INSERT INTO `rc_student` VALUES ('8', '201711010008', '李同学6', '81a5f5a9bfde4cdcb5b9fe1f8508df2a');
+INSERT INTO `rc_student` VALUES ('9', '201711010009', '李同学7', '81a5f5a9bfde4cdcb5b9fe1f8508df2a');
+INSERT INTO `rc_student` VALUES ('10', '201711010010', '李同学8', '81a5f5a9bfde4cdcb5b9fe1f8508df2a');
+INSERT INTO `rc_student` VALUES ('11', '201711010011', '李同学9', '81a5f5a9bfde4cdcb5b9fe1f8508df2a');
+INSERT INTO `rc_student` VALUES ('12', '201711010012', '张同学1', '81a5f5a9bfde4cdcb5b9fe1f8508df2a');
+INSERT INTO `rc_student` VALUES ('13', '201711010013', '张同学2', '81a5f5a9bfde4cdcb5b9fe1f8508df2a');
+INSERT INTO `rc_student` VALUES ('14', '201711010014', '张同学3', '81a5f5a9bfde4cdcb5b9fe1f8508df2a');
+INSERT INTO `rc_student` VALUES ('15', '201711010015', '张同学4', '81a5f5a9bfde4cdcb5b9fe1f8508df2a');
+INSERT INTO `rc_student` VALUES ('16', '201711010016', '张同学5', '81a5f5a9bfde4cdcb5b9fe1f8508df2a');
+INSERT INTO `rc_student` VALUES ('17', '201711010017', '张同学6', '81a5f5a9bfde4cdcb5b9fe1f8508df2a');
+INSERT INTO `rc_student` VALUES ('18', '201711010018', '张同学7', '81a5f5a9bfde4cdcb5b9fe1f8508df2a');
+INSERT INTO `rc_student` VALUES ('19', '201711020001', '王同学1', '81a5f5a9bfde4cdcb5b9fe1f8508df2a');
+INSERT INTO `rc_student` VALUES ('20', '201711020002', '王同学2', '81a5f5a9bfde4cdcb5b9fe1f8508df2a');
+INSERT INTO `rc_student` VALUES ('21', '201711020003', '王同学3', '81a5f5a9bfde4cdcb5b9fe1f8508df2a');
+INSERT INTO `rc_student` VALUES ('22', '201711020004', '王同学4', '81a5f5a9bfde4cdcb5b9fe1f8508df2a');
+INSERT INTO `rc_student` VALUES ('23', '201711020005', '王同学5', '81a5f5a9bfde4cdcb5b9fe1f8508df2a');
+INSERT INTO `rc_student` VALUES ('24', '201711020006', '王同学6', '81a5f5a9bfde4cdcb5b9fe1f8508df2a');
+INSERT INTO `rc_student` VALUES ('25', '201711020007', '王同学7', '81a5f5a9bfde4cdcb5b9fe1f8508df2a');
+INSERT INTO `rc_student` VALUES ('26', '201711020008', '王同学8', '81a5f5a9bfde4cdcb5b9fe1f8508df2a');
+INSERT INTO `rc_student` VALUES ('27', '201711020009', '王同学9', '81a5f5a9bfde4cdcb5b9fe1f8508df2a');
+INSERT INTO `rc_student` VALUES ('28', '201711020010', '王同学10', '81a5f5a9bfde4cdcb5b9fe1f8508df2a');
+INSERT INTO `rc_student` VALUES ('29', '666888', '小明同学', '06c28ab4065397781bb7fa3da670336b');
 
 DROP TABLE IF EXISTS `rc_teacher`;
 CREATE TABLE `rc_teacher` (
   `teacher_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '教师Id',
+  `teacher_number` int(16) NOT NULL,
   `teacher_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '教师姓名',
   `teacher_password` char(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '密码',
-  `major` varchar(16) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '专业领域',
-  `experirence` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '教学经验',
-  `level` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '职称',
-  `introduction` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '教师简介',
+  `major` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '专业领域',
+  `experirence` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '教学经验',
+  `level` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '职称',
+  `introduction` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '教师简介',
   PRIMARY KEY (`teacher_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=7472762 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of rc_teacher
 -- ----------------------------
-INSERT INTO `rc_teacher` VALUES ('1', '张三', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, null, null);
-INSERT INTO `rc_teacher` VALUES ('2', '宋老师', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, null, null);
-INSERT INTO `rc_teacher` VALUES ('3', '宋老师', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, null, null);
-INSERT INTO `rc_teacher` VALUES ('4', '张老师', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, null, null);
-INSERT INTO `rc_teacher` VALUES ('5', '吕老师', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, null, null);
-INSERT INTO `rc_teacher` VALUES ('6', '王老师', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, null, null);
-INSERT INTO `rc_teacher` VALUES ('7', '丁老师', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, null, null);
-INSERT INTO `rc_teacher` VALUES ('8', '高老师', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, null, null);
-INSERT INTO `rc_teacher` VALUES ('9', '赵老师', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, null, null);
-
+INSERT INTO `rc_teacher` VALUES ('1', '0', '张三', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, null, null);
+INSERT INTO `rc_teacher` VALUES ('2', '0', '宋老师', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, null, null);
+INSERT INTO `rc_teacher` VALUES ('3', '0', '宋老师', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, null, null);
+INSERT INTO `rc_teacher` VALUES ('4', '0', '张老师', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, null, null);
+INSERT INTO `rc_teacher` VALUES ('5', '0', '吕老师', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, null, null);
+INSERT INTO `rc_teacher` VALUES ('6', '0', '王老师', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, null, null);
+INSERT INTO `rc_teacher` VALUES ('7', '0', '丁老师', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, null, null);
+INSERT INTO `rc_teacher` VALUES ('8', '0', '高老师', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, null, null);
+INSERT INTO `rc_teacher` VALUES ('9', '0', '赵老师', '81a5f5a9bfde4cdcb5b9fe1f8508df2a', null, null, null, null);
+INSERT INTO `rc_teacher` VALUES ('7472761', '20170313', '小张老师', '06c28ab4065397781bb7fa3da670336b', null, null, null, null);
