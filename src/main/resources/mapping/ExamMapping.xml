@@ -5,9 +5,6 @@
     <select id="getExamMainPage" resultType="com.rainng.coursesystem.model.entity.RcExamEntity">
         select * from rc_exam
         <where>
-            <if test="examId != null">
-                and exam_id = #{examId}
-            </if>
             <if test="title != null and title != ''">
                 and title like ('%',#{title},'%')
             </if>

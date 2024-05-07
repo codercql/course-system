@@ -18,9 +18,6 @@ public class ExamSearchReqVO {
     @ApiModelProperty("考试内容 模糊查询")
     private String content;
 
-    @ApiModelProperty("考试Id")
-    private String examId;
-
     @ApiModelProperty("分页参数")
     private PageInfo<ExamSearchReqVO> pageParam;
 }
