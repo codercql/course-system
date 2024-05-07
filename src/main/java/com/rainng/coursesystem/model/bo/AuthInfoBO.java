@@ -33,7 +33,7 @@ public class AuthInfoBO {
         if (entity == null) {
             return null;
         }
-        return new AuthInfoBO(entity.getId(), entity.getNumber(), entity.getPassword(), UserType.STUDENT);
+        return new AuthInfoBO(entity.getId(), entity.getName(), entity.getPassword(), UserType.STUDENT);
     }
 
     public static AuthInfoBO fromTeacher(TeacherEntity entity) {
