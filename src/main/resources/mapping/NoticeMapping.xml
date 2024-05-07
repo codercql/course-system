@@ -5,9 +5,6 @@
     <select id="getNoticeMainPage" resultType="com.rainng.coursesystem.model.entity.RcNoticeEntity">
         select * from rc_notice
         <where>
-            <if test="noticeId != null">
-                and notice_id = #{noticeId}
-            </if>
             <if test="title != null and title != ''">
                 and title like concat('%',keyword,'%')
             </if>

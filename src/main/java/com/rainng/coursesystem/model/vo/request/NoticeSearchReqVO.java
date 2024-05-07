@@ -12,8 +12,6 @@ import lombok.Data;
  **/
 @Data
 public class NoticeSearchReqVO {
-    @ApiModelProperty("公告Id")
-    private int noticeId;
 
     @ApiModelProperty("公告标题，模糊查询")
     private String title;
