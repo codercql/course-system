@@ -1,17 +1,26 @@
 package com.rainng.coursesystem.service.admin;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.rainng.coursesystem.dao.mapper.TeacherMapper;
 import com.rainng.coursesystem.manager.admin.TeacherManager;
 import com.rainng.coursesystem.model.entity.TeacherEntity;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.service.BaseService;
 import com.rainng.coursesystem.service.UserService;
 import com.rainng.coursesystem.util.RandomNumUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Service
 public class TeacherService extends BaseService {
     private final TeacherManager manager;
     private final UserService userService;
+    @Autowired
+    private TeacherMapper teacherMapper;
 
     public TeacherService(TeacherManager manager, UserService userService) {
         this.manager = manager;
@@ -78,4 +87,13 @@ public class TeacherService extends BaseService {
     public ResultVO listName() {
         return result(manager.listName());
     }
+
+    public ResultVO<List<TeacherEntity>> getTeacherList(String teacherName) {
+        LambdaQueryWrapper<TeacherEntity> qw = new LambdaQueryWrapper<>();
+        if(!StringUtils.isEmpty(teacherName)){
+            qw.like(TeacherEntity::getTeacherName,teacherName);
+        }
+        return result(teacherMapper.selectList(qw));
+    }
+
 }

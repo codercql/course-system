@@ -5,8 +5,11 @@ import com.rainng.coursesystem.controller.BaseController;
 import com.rainng.coursesystem.model.entity.TeacherEntity;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.service.admin.TeacherService;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 //@Admin(Admin.TEACHER_MANAGE)
 @RequestMapping("/admin/teacher")
@@ -57,5 +60,10 @@ public class TeacherController extends BaseController {
     @RequestMapping("/names")
     public ResultVO listName() {
         return service.listName();
+    }
+
+    @GetMapping("/getTeacherList")
+    public ResultVO<List<TeacherEntity>> getTeacherList(@RequestParam("teacherName")  String teacherName){
+        return service.getTeacherList(teacherName);
     }
 }
