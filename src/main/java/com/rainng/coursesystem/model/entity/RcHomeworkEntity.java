@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 /**
@@ -39,10 +41,12 @@ public class RcHomeworkEntity implements Serializable {
 	/**
 	 * 作业开始时间
 	 */
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date startTime;
 	/**
 	 * 作业截止时间
 	 */
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date endTime;
 	/**
 	 * 作业状态0,1
@@ -51,10 +55,12 @@ public class RcHomeworkEntity implements Serializable {
 	/**
 	 * 创建时间
 	 */
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createTime;
 	/**
 	 * 更新时间
 	 */
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date updateTime;
 
 }

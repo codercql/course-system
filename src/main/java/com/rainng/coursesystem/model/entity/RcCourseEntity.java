@@ -1,6 +1,7 @@
 package com.rainng.coursesystem.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
@@ -43,14 +44,17 @@ public class RcCourseEntity {
     /**
      * 考试时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date courseExamDate;
     /**
      * 课程创建时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
     /**
      * 课程更新时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
     /**
      * 0表示免费1表示付费
@@ -79,9 +83,11 @@ public class RcCourseEntity {
     /**
      *
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date courseStartTime;
     /**
      *
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date courseEndTime;
 }

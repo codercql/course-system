@@ -2,6 +2,7 @@ package com.rainng.coursesystem.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
@@ -33,6 +34,7 @@ public class CommentEntity {
     @TableField(COMMENT)
     private String comment;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @TableField(COMMENT_TM)
     private Date commentTm;
 
@@ -45,6 +47,7 @@ public class CommentEntity {
     @TableField(REPLY_ID)
     private Integer replyId;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @TableField(REPLY_TM)
     private Date replyTm;
   }
