@@ -1,6 +1,5 @@
 package com.rainng.coursesystem.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.rainng.coursesystem.dao.mapper.CommentMapper;
 import com.rainng.coursesystem.enums.PrivilegeEnum;
 import com.rainng.coursesystem.model.entity.CommentEntity;
@@ -10,14 +9,14 @@ import com.rainng.coursesystem.model.vo.request.ReplyVO;
 import com.rainng.coursesystem.model.vo.response.CommentDetailVO;
 import com.rainng.coursesystem.model.vo.response.CommentReplyVO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
-import org.springframework.beans.BeanUtils;
+import com.rainng.coursesystem.util.RandomNumUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -26,21 +25,19 @@ import java.util.stream.Collectors;
  * @create: 2024-04-10 00:17
  **/
 @Service
-public class CommentService extends BaseService{
+public class CommentService extends BaseService {
     @Autowired
     private CommentMapper commentMapper;
 
     /***
-    * @Description: 新增评论
-    * @Param: [entity]
-    * @return: com.rainng.coursesystem.model.vo.response.ResultVO
-    * @Date: 2024/4/11
-    */
+     * @Description: 新增评论
+     * @Param: [entity]
+     * @return: com.rainng.coursesystem.model.vo.response.ResultVO
+     * @Date: 2024/4/11
+     */
     public ResultVO<String> addComment(CommentVO vo) {
         CommentEntity entity = new CommentEntity();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSSS");
-        String id = sdf.format(System.currentTimeMillis());
-        Integer commentId = Integer.valueOf(id.substring(0,10));
+        entity.setCommentId(RandomNumUtil.getRandomNum());
         entity.setCourseId(vo.getCourseId());
         entity.setComment(vo.getComment());
         entity.setCommentTm(new Date());
@@ -50,13 +47,9 @@ public class CommentService extends BaseService{
         return result("评论成功");
     }
 
-    public ResultVO<String> addReply(ReplyVO vo){
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSSS");
-//        String id = sdf.format(System.currentTimeMillis());
-//        Integer replyId = Integer.valueOf(id.substring(0,10));
-
+    public ResultVO<String> addReply(ReplyVO vo) {
         CommentEntity entity = new CommentEntity();
-        entity.setCommentId(Integer.valueOf(vo.getCommentId()));
+        entity.setCommentId(vo.getCommentId());
         entity.setCourseId(vo.getCourseId());
         entity.setComment(vo.getComment());
         entity.setReplyId(vo.getCommentId());
@@ -68,13 +61,13 @@ public class CommentService extends BaseService{
     }
 
     /***
-    * @Description: 查询评论
-    * @Param: []
-    * @return: com.rainng.coursesystem.model.vo.response.ResultVO
-    * @Author: chenqiulu
-    * @Date: 2024/4/11
-    */
-    public ResultVO<CommentReplyVO> getComment(Integer courseId){
+     * @Description: 查询评论
+     * @Param: []
+     * @return: com.rainng.coursesystem.model.vo.response.ResultVO
+     * @Author: chenqiulu
+     * @Date: 2024/4/11
+     */
+    public ResultVO<CommentReplyVO> getComment(Integer courseId) {
         //查询所有用户id和姓名
         List<UserIdNameVO> studentIdNameList = commentMapper.getStudentIdNameList();
         List<UserIdNameVO> teacherIdNameList = commentMapper.getTeacherIdNameList();
@@ -85,17 +78,17 @@ public class CommentService extends BaseService{
         CommentReplyVO commentReplyVO = new CommentReplyVO();
         //先根据课程id查询评论,课程id为空查询全部评论
         List<CommentDetailVO> commentList = commentMapper.selectByCourseId(courseId);
-        if(CollectionUtils.isEmpty(commentList)){
+        if (CollectionUtils.isEmpty(commentList)) {
             return result("");
         }
         //查询该评论所有回复
         commentList.forEach(commentDetailVO -> {
             List<CommentDetailVO> replyList = commentMapper.selectListByReplyId(commentDetailVO.getCommentId());
             //查询用户名称
-            String userName = getUserName(commentDetailVO.getCommentPrivilege(),commentDetailVO.getCommentUserId(),teacherIdNameMap,studentIdNameMap);
+            String userName = getUserName(commentDetailVO.getCommentPrivilege(), commentDetailVO.getCommentUserId(), teacherIdNameMap, studentIdNameMap);
             commentDetailVO.setCommentUserName(userName);
-            replyList.forEach(reply->{
-                String replyUserName = getUserName(reply.getCommentPrivilege(),reply.getCommentUserId(),teacherIdNameMap,studentIdNameMap);
+            replyList.forEach(reply -> {
+                String replyUserName = getUserName(reply.getCommentPrivilege(), reply.getCommentUserId(), teacherIdNameMap, studentIdNameMap);
                 reply.setCommentUserName(replyUserName);
             });
             commentReplyVO.setComment(commentDetailVO);
@@ -105,15 +98,15 @@ public class CommentService extends BaseService{
 
     }
 
-    public String getUserName(String privilege,Integer userId,Map<Integer, List<UserIdNameVO>> teacherMap,
-                              Map<Integer, List<UserIdNameVO>> studentMap){
-        if(PrivilegeEnum.TEACHER.getCode().equals(privilege)
-                && teacherMap.containsKey(userId)){
+    public String getUserName(String privilege, Integer userId, Map<Integer, List<UserIdNameVO>> teacherMap,
+                              Map<Integer, List<UserIdNameVO>> studentMap) {
+        if (PrivilegeEnum.TEACHER.getCode().equals(privilege)
+                && teacherMap.containsKey(userId)) {
             return teacherMap.get(userId).get(0).getUserName();
-        }else if(PrivilegeEnum.STUDENT.getCode().equals(privilege) &&
-                studentMap.containsKey(userId)){
+        } else if (PrivilegeEnum.STUDENT.getCode().equals(privilege) &&
+                studentMap.containsKey(userId)) {
             return studentMap.get(userId).get(0).getUserName();
-        }else{
+        } else {
             return "";
         }
     }
