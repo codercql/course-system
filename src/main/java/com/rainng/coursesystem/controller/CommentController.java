@@ -6,7 +6,6 @@ import com.rainng.coursesystem.model.vo.response.CommentReplyVO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.service.CommentService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -38,10 +37,9 @@ public class CommentController {
          return commentService.addReply(vo);
     }
 
-    @ApiOperation("查询该课程所有评论")
+    @ApiOperation("查询该课程所有评论(courseId为空则查询所有评论)")
     @GetMapping("/getComment")
     public ResultVO<CommentReplyVO> getComment(@RequestParam("courseId") Integer courseId){
         return commentService.getComment(courseId);
     }
-
 }

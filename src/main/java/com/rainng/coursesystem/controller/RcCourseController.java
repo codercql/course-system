@@ -99,6 +99,13 @@ public class RcCourseController extends BaseController {
         return rcCourseService.update(courseEntity);
     }
 
+
+    @ApiOperation("删除课程")
+    @GetMapping("/delete")
+    public ResultVO deleteCourse(@RequestParam("courseId") Integer courseId){
+        return rcCourseService.delete(courseId);
+    }
+
     @ApiOperation("通过课程Id获取封面")
     @GetMapping("/getCoverByCourseId")
     public ResultVO<String> getCoverByCourseId(@RequestParam("courseId") Integer courseId) {

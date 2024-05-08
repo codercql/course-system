@@ -4,8 +4,12 @@
 <mapper namespace="com.rainng.coursesystem.dao.mapper.CommentMapper">
     <select id="selectByCourseId" resultType="com.rainng.coursesystem.model.vo.response.CommentDetailVO">
         select * from rc_comment
-        where course_id = #{courseId}
-        and reply_id is null
+        <where>
+            <if test="courseId != null and courseId != 0">
+                course_id = #{courseId}
+            </if>
+            and reply_id is null
+        </where>
         order by comment_tm desc
     </select>
 

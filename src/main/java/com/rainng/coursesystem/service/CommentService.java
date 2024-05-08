@@ -1,5 +1,6 @@
 package com.rainng.coursesystem.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.rainng.coursesystem.dao.mapper.CommentMapper;
 import com.rainng.coursesystem.enums.PrivilegeEnum;
 import com.rainng.coursesystem.model.entity.CommentEntity;
@@ -74,9 +75,6 @@ public class CommentService extends BaseService{
     * @Date: 2024/4/11
     */
     public ResultVO<CommentReplyVO> getComment(Integer courseId){
-        if(StringUtils.isEmpty(courseId)){
-            return failedResult("课程ID不能为空");
-        }
         //查询所有用户id和姓名
         List<UserIdNameVO> studentIdNameList = commentMapper.getStudentIdNameList();
         List<UserIdNameVO> teacherIdNameList = commentMapper.getTeacherIdNameList();
@@ -85,7 +83,7 @@ public class CommentService extends BaseService{
         Map<Integer, List<UserIdNameVO>> teacherIdNameMap = teacherIdNameList.stream().collect(Collectors.groupingBy(UserIdNameVO::getUserId));
 
         CommentReplyVO commentReplyVO = new CommentReplyVO();
-        //先根据课程id查询评论
+        //先根据课程id查询评论,课程id为空查询全部评论
         List<CommentDetailVO> commentList = commentMapper.selectByCourseId(courseId);
         if(CollectionUtils.isEmpty(commentList)){
             return result("");
