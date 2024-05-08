@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.rainng.coursesystem.config.themis.annotation.Admin;
 import com.rainng.coursesystem.model.entity.RcExamEntity;
 import com.rainng.coursesystem.model.vo.request.ExamSearchReqVO;
+import com.rainng.coursesystem.model.vo.request.RcExamReqVO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.service.RcExamService;
 import io.swagger.annotations.Api;
@@ -33,19 +34,19 @@ public class RcExamController {
         return rcExamService.getExamMainPage(vo);
     }
 
-    @ApiOperation("新增作业")
+    @ApiOperation("新增考试")
     @PostMapping("/add")
-    public ResultVO<String> addExam(@RequestBody RcExamEntity entity) {
-        return rcExamService.addExam(entity);
+    public ResultVO<String> addExam(@RequestBody RcExamReqVO vo) {
+        return rcExamService.addExam(vo);
     }
 
-    @ApiOperation("更新作业")
+    @ApiOperation("更新考试")
     @PostMapping("/update")
-    public ResultVO<String> updateExam(@RequestBody RcExamEntity entity) {
-        return rcExamService.updateExam(entity);
+    public ResultVO<String> updateExam(@RequestBody RcExamReqVO vo) {
+        return rcExamService.updateExam(vo);
     }
 
-    @ApiOperation("删除作业")
+    @ApiOperation("删除考试")
     @PostMapping("/delete")
     public ResultVO<String> deleteExam(@RequestParam("examId") String examId) {
         return rcExamService.deleteExam(examId);
