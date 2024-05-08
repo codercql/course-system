@@ -4,6 +4,8 @@ import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @program: course-system
  * @description: 课程查询入参

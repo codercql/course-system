@@ -1,6 +1,7 @@
 package com.rainng.coursesystem.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
@@ -13,6 +14,7 @@ import java.util.Date;
  * @create: 2024-05-02 10:46
  **/
 @Data
+@TableName("rc_course")
 public class RcCourseEntity {
     private static final long serialVersionUID = 1L;
 

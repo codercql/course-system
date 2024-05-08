@@ -2,11 +2,14 @@ package com.rainng.coursesystem.controller;
 
 import com.rainng.coursesystem.model.entity.RcProcessEntity;
 import com.rainng.coursesystem.model.entity.RcSelectCourseEntity;
+import com.rainng.coursesystem.model.vo.response.CourseSearchResVO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.service.RcSelectCourseService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 /**
@@ -38,6 +41,12 @@ public class RcSelectCourseController {
     @PostMapping("/update")
     public ResultVO<String> updateSelectCourse(@RequestBody RcSelectCourseEntity entity){
         return rcSelectCourseService.updateSelectCourse(entity);
+    }
+
+    @ApiOperation("通过学生Id获取课程详情列表")
+    @PostMapping("/getCourseListByStudentId")
+    public ResultVO<List<CourseSearchResVO>> getCourseListByStudentId(@RequestParam("studentId") String studentId){
+        return rcSelectCourseService.getCourseListByStudentId(studentId);
     }
 
 }

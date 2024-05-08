@@ -17,4 +17,6 @@ import java.util.List;
 @Mapper
 public interface RcCourseMapper extends BaseMapper<RcCourseEntity> {
     List<CourseSearchResVO> getMainPage(CourseSearchReqVO vo);
+
+    List<CourseSearchResVO> getCourseListByStudentId(String studentId);
 }
