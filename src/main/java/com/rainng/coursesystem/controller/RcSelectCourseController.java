@@ -4,6 +4,7 @@ import com.rainng.coursesystem.model.entity.RcProcessEntity;
 import com.rainng.coursesystem.model.entity.RcSelectCourseEntity;
 import com.rainng.coursesystem.model.vo.response.CourseSearchResVO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
+import com.rainng.coursesystem.model.vo.response.SelectCourseDetailVO;
 import com.rainng.coursesystem.service.RcSelectCourseService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import java.util.List;
  * @date 2024-05-05 16:42:31
  */
 @RestController
-@RequestMapping("generator/selectCourse")
+@RequestMapping("/selectCourse")
 public class RcSelectCourseController {
     @Autowired
     private RcSelectCourseService rcSelectCourseService;
@@ -44,8 +45,8 @@ public class RcSelectCourseController {
     }
 
     @ApiOperation("通过学生Id获取课程详情列表")
-    @PostMapping("/getCourseListByStudentId")
-    public ResultVO<List<CourseSearchResVO>> getCourseListByStudentId(@RequestParam("studentId") String studentId){
+    @GetMapping("/getCourseListByStudentId")
+    public ResultVO<List<SelectCourseDetailVO>> getCourseListByStudentId(@RequestParam("studentId") String studentId){
         return rcSelectCourseService.getCourseListByStudentId(studentId);
     }
 

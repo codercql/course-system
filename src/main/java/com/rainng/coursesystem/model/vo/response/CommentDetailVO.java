@@ -1,6 +1,7 @@
 package com.rainng.coursesystem.model.vo.response;
 
 import com.rainng.coursesystem.model.entity.CommentEntity;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -11,5 +12,6 @@ import lombok.Data;
  **/
 @Data
 public class CommentDetailVO extends CommentEntity {
+    @ApiModelProperty("评论人姓名")
     private String commentUserName;
 }

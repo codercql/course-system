@@ -6,6 +6,7 @@ import com.rainng.coursesystem.dao.mapper.RcSelectCourseMapper;
 import com.rainng.coursesystem.model.entity.RcSelectCourseEntity;
 import com.rainng.coursesystem.model.vo.response.CourseSearchResVO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
+import com.rainng.coursesystem.model.vo.response.SelectCourseDetailVO;
 import com.rainng.coursesystem.util.RandomNumUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,7 @@ public class RcSelectCourseService extends BaseService {
         return result("选课关系更新成功！");
     }
 
-    public ResultVO<List<CourseSearchResVO>> getCourseListByStudentId(@RequestParam("studentId") String studentId) {
+    public ResultVO<List<SelectCourseDetailVO>> getCourseListByStudentId(@RequestParam("studentId") String studentId) {
         return result(rcSelectCourseMapper.getCourseListByStudentId(studentId));
     }
 
