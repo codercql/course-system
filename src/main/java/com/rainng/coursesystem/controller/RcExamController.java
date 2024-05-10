@@ -14,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @program: course-system
  * @description:
@@ -50,5 +52,11 @@ public class RcExamController {
     @PostMapping("/delete")
     public ResultVO<String> deleteExam(@RequestParam("examId") String examId) {
         return rcExamService.deleteExam(examId);
+    }
+
+    @ApiOperation("通过学生Id获取考试列表")
+    @PostMapping("/getExamListByStudentId")
+    public ResultVO<List<RcExamEntity>> getExamListByStudentId(@RequestParam("studentId") String studentId){
+        return rcExamService.getExamListByStudentId(studentId);
     }
 }
