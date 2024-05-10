@@ -124,4 +124,10 @@ public class RcCourseController extends BaseController {
         return rcCourseService.getFileByCourseId(courseId, response);
     }
 
+    @ApiOperation("根据学生id获取课程列表")
+    @GetMapping("/getCourseListByStudentId")
+    public ResultVO<List<RcCourseEntity>> getCourseListByStudentId(@RequestParam("studentId") Integer studentId) {
+        return rcCourseService.getCourseListByStudentId(studentId);
+    }
+
 }

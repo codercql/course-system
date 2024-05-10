@@ -1,11 +1,13 @@
 package com.rainng.coursesystem.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.github.pagehelper.PageInfo;
 import com.rainng.coursesystem.dao.mapper.RcCourseMapper;
+import com.rainng.coursesystem.dao.mapper.RcSelectCourseMapper;
 import com.rainng.coursesystem.model.DownloadFileDto;
-import com.rainng.coursesystem.model.entity.CourseEntity;
 import com.rainng.coursesystem.model.entity.RcCourseEntity;
+import com.rainng.coursesystem.model.entity.RcSelectCourseEntity;
 import com.rainng.coursesystem.model.vo.request.CourseSearchReqVO;
 import com.rainng.coursesystem.model.vo.response.CourseSearchResVO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
@@ -14,18 +16,13 @@ import com.rainng.coursesystem.util.ZipFileUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @program: course-system
@@ -39,6 +36,9 @@ public class RcCourseService extends BaseService{
 
     @Autowired
     private RcCourseMapper rcCourseMapper;
+    @Autowired
+    private RcSelectCourseMapper rcSelectCourseMapper;
+
 
     public ResultVO<String> update(RcCourseEntity entity) {
         if(entity.getCourseId() == null){
@@ -121,5 +121,16 @@ public class RcCourseService extends BaseService{
         });
         PageInfo<CourseSearchResVO> pageInfo = new PageInfo<>(mainPage);
         return result(pageInfo);
+    }
+
+    public ResultVO<List<RcCourseEntity>> getCourseListByStudentId(Integer studentId) {
+        List<RcSelectCourseEntity> rcSelectCourseEntities = rcSelectCourseMapper.selectList(new LambdaQueryWrapper<RcSelectCourseEntity>().eq(RcSelectCourseEntity::getScStudentId, studentId));
+        List<Integer> courseIdList = rcSelectCourseEntities.stream().map(RcSelectCourseEntity::getScCourseId).distinct().collect(Collectors.toList());
+        List<RcCourseEntity> rcCourseEntities = rcCourseMapper.selectBatchIds(courseIdList);
+        rcCourseEntities.stream().forEach(course->{
+            course.setFile(null);
+            course.setCover(null);
+        });
+        return result(rcCourseEntities);
     }
 }
