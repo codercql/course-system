@@ -83,7 +83,7 @@ public class RcExamService extends BaseService {
         return result("删除考试成功！");
     }
 
-    public ResultVO<List<RcExamEntity>> getExamListByStudentId(String studentId) {
+    public ResultVO<List<RcExamEntity>> getExamListByStudentId(Integer studentId) {
         List<RcSelectCourseEntity> rcSelectCourseEntities = rcSelectCourseMapper.selectList(new LambdaQueryWrapper<RcSelectCourseEntity>().eq(RcSelectCourseEntity::getScStudentId, studentId));
         List<Integer> examIdList = rcSelectCourseEntities.stream().map(RcSelectCourseEntity::getExamId).distinct().collect(Collectors.toList());
 

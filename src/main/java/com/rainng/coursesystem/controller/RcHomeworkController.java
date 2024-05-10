@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @program: course-system
  * @description:
@@ -47,5 +49,11 @@ public class RcHomeworkController {
     @PostMapping("/delete")
     public ResultVO<String> deleteHomework(@RequestParam("homeworkId") String homeworkId){
         return rcHomeworkService.deleteHomework(homeworkId);
+    }
+
+    @ApiOperation("通过学生id查询所有作业")
+    @PostMapping("/getHomeworkListByStudentId")
+    public ResultVO<List<RcHomeworkEntity>> getHomeworkListByStudentId(@RequestParam("studentId") Integer studentId) {
+        return rcHomeworkService.getHomeworkListByStudentId(studentId);
     }
 }

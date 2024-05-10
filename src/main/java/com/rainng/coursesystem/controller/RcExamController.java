@@ -56,7 +56,7 @@ public class RcExamController {
 
     @ApiOperation("通过学生Id获取考试列表")
     @PostMapping("/getExamListByStudentId")
-    public ResultVO<List<RcExamEntity>> getExamListByStudentId(@RequestParam("studentId") String studentId){
+    public ResultVO<List<RcExamEntity>> getExamListByStudentId(@RequestParam("studentId") Integer studentId){
         return rcExamService.getExamListByStudentId(studentId);
     }
 }
