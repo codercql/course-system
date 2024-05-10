@@ -110,4 +110,22 @@ public class CommentService extends BaseService {
             return "";
         }
     }
+
+    public ResultVO<List<CommentDetailVO>> getCommentByUserId(String userId){
+        List<CommentDetailVO> commentByUserId = commentMapper.getCommentByUserId(userId);
+
+        //查询所有用户id和姓名
+        List<UserIdNameVO> studentIdNameList = commentMapper.getStudentIdNameList();
+        List<UserIdNameVO> teacherIdNameList = commentMapper.getTeacherIdNameList();
+
+        Map<Integer, List<UserIdNameVO>> studentIdNameMap = studentIdNameList.stream().collect(Collectors.groupingBy(UserIdNameVO::getUserId));
+        Map<Integer, List<UserIdNameVO>> teacherIdNameMap = teacherIdNameList.stream().collect(Collectors.groupingBy(UserIdNameVO::getUserId));
+
+        commentByUserId.forEach(commentDetailVO -> {
+            //查询用户名称
+            String userName = getUserName(commentDetailVO.getCommentPrivilege(), commentDetailVO.getCommentUserId(), teacherIdNameMap, studentIdNameMap);
+            commentDetailVO.setCommentUserName(userName);
+        });
+        return result(commentByUserId);
+    }
 }

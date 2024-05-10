@@ -24,4 +24,7 @@ public interface CommentMapper extends BaseMapper<CommentEntity> {
     List<UserIdNameVO> getStudentIdNameList();
 
     List<UserIdNameVO> getTeacherIdNameList();
+
+    List<CommentDetailVO> getCommentByUserId(String userId);
+
 }

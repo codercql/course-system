@@ -2,6 +2,7 @@ package com.rainng.coursesystem.controller;
 
 import com.rainng.coursesystem.model.vo.request.CommentVO;
 import com.rainng.coursesystem.model.vo.request.ReplyVO;
+import com.rainng.coursesystem.model.vo.response.CommentDetailVO;
 import com.rainng.coursesystem.model.vo.response.CommentReplyVO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.service.CommentService;
@@ -9,6 +10,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @program: course-system
@@ -19,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @Api("评论模块")
 @RequestMapping("/comment")
 @RestController
-public class CommentController {
+public class CommentController<ResultVo> {
 
     @Autowired
     private CommentService commentService;
@@ -41,5 +44,11 @@ public class CommentController {
     @GetMapping("/getComment")
     public ResultVO<CommentReplyVO> getComment(@RequestParam("courseId") Integer courseId){
         return commentService.getComment(courseId);
+    }
+
+    @ApiOperation("查询该用户所有评论、回复,入参传studentId/teacherId")
+    @GetMapping("/getCommentByUserId")
+    public ResultVO<List<CommentDetailVO>> getCommentByUserId(@RequestParam("userId") String userId){
+        return commentService.getCommentByUserId(userId);
     }
 }

@@ -20,10 +20,20 @@
     </select>
 
     <select id="getStudentIdNameList" resultType="com.rainng.coursesystem.model.vo.UserIdNameVO">
-        select student_number as userId,student_name as userName ,'student' as privilege from rc_student
+        select student_id as userId,student_name as userName ,'student' as privilege from rc_student
     </select>
 
     <select id="getTeacherIdNameList" resultType="com.rainng.coursesystem.model.vo.UserIdNameVO">
-        select teacher_number as userId,teacher_name as userName ,'teacher' as privilege from rc_teacher
+        select teacher_id as userId,teacher_name as userName ,'teacher' as privilege from rc_teacher
+    </select>
+
+    <select id="getCommentByUserId" resultType="com.rainng.coursesystem.model.vo.response.CommentDetailVO">
+        select * from rc_comment
+        <where>
+            <if test="userId != null and userId != ''">
+                comment_user_id = #{userId}
+            </if>
+        </where>
+        order by comment_tm,reply_tm desc
     </select>
 </mapper>
