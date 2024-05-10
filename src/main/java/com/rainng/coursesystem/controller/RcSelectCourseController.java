@@ -1,8 +1,6 @@
 package com.rainng.coursesystem.controller;
 
-import com.rainng.coursesystem.model.entity.RcProcessEntity;
 import com.rainng.coursesystem.model.entity.RcSelectCourseEntity;
-import com.rainng.coursesystem.model.vo.response.CourseSearchResVO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.model.vo.response.SelectCourseDetailVO;
 import com.rainng.coursesystem.service.RcSelectCourseService;

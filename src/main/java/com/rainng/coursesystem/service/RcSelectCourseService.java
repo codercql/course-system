@@ -1,21 +1,19 @@
 package com.rainng.coursesystem.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.rainng.coursesystem.dao.mapper.RcCourseMapper;
 import com.rainng.coursesystem.dao.mapper.RcSelectCourseMapper;
+import com.rainng.coursesystem.model.entity.RcCourseEntity;
 import com.rainng.coursesystem.model.entity.RcSelectCourseEntity;
-import com.rainng.coursesystem.model.vo.response.CourseSearchResVO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.model.vo.response.SelectCourseDetailVO;
 import com.rainng.coursesystem.util.RandomNumUtil;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 
 /**
@@ -27,6 +25,8 @@ import java.util.Random;
 public class RcSelectCourseService extends BaseService {
     @Autowired
     private RcSelectCourseMapper rcSelectCourseMapper;
+    @Autowired
+    private RcCourseMapper rcCourseMapper;
 
 
     public ResultVO<RcSelectCourseEntity> getInfoByScId(Integer scId) {
@@ -46,6 +46,12 @@ public class RcSelectCourseService extends BaseService {
         entity.setCreateTime(new Date());
         entity.setUpdateTime(new Date());
         rcSelectCourseMapper.insert(entity);
+        //更新课程表选课人数
+        RcCourseEntity rcCourseEntity = rcCourseMapper.selectById(entity.getScCourseId());
+        Integer count = rcCourseEntity.getCourseSelectedCount();
+        rcCourseEntity.setCourseSelectedCount(count + 1);
+        rcCourseEntity.setUpdateTime(new Date());
+        rcCourseMapper.updateById(rcCourseEntity);
         return result("选课关系新增成功！");
     }
 
