@@ -11,6 +11,7 @@ import com.rainng.coursesystem.model.entity.RcExamEntity;
 import com.rainng.coursesystem.model.entity.RcSelectCourseEntity;
 import com.rainng.coursesystem.model.vo.request.ExamSearchReqVO;
 import com.rainng.coursesystem.model.vo.request.RcExamReqVO;
+import com.rainng.coursesystem.model.vo.response.ExamDetailVO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.util.RandomNumUtil;
 import org.springframework.beans.BeanUtils;
@@ -37,9 +38,9 @@ public class RcExamService extends BaseService {
     @Autowired
     private RcSelectCourseMapper rcSelectCourseMapper;
 
-    public ResultVO<PageInfo<RcExamEntity>> getExamMainPage(ExamSearchReqVO vo) {
-        List<RcExamEntity> examMainPage = examMapper.getExamMainPage(vo);
-        PageInfo<RcExamEntity> pageInfo = new PageInfo<>(examMainPage);
+    public ResultVO<PageInfo<ExamDetailVO>> getExamMainPage(ExamSearchReqVO vo) {
+        List<ExamDetailVO> examMainPage = examMapper.getExamMainPage(vo);
+        PageInfo<ExamDetailVO> pageInfo = new PageInfo<>(examMainPage);
         return result(pageInfo);
     }
 
@@ -83,12 +84,11 @@ public class RcExamService extends BaseService {
         return result("删除考试成功！");
     }
 
-    public ResultVO<List<RcExamEntity>> getExamListByStudentId(Integer studentId) {
+    public ResultVO<List<ExamDetailVO>> getExamListByStudentId(Integer studentId) {
         List<RcSelectCourseEntity> rcSelectCourseEntities = rcSelectCourseMapper.selectList(new LambdaQueryWrapper<RcSelectCourseEntity>().eq(RcSelectCourseEntity::getScStudentId, studentId));
         List<Integer> examIdList = rcSelectCourseEntities.stream().map(RcSelectCourseEntity::getExamId).distinct().collect(Collectors.toList());
-
-        List<RcExamEntity> examEntities = examMapper.selectBatchIds(examIdList);
-
-        return result(examEntities);
+        ExamSearchReqVO vo = new ExamSearchReqVO();
+        vo.setExamIdList(examIdList);
+        return result(examMapper.getExamMainPage(vo));
     }
 }

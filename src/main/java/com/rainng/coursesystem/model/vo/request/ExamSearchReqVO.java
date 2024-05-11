@@ -1,8 +1,11 @@
 package com.rainng.coursesystem.model.vo.request;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * @program: course-system
@@ -20,4 +23,7 @@ public class ExamSearchReqVO {
 
     @ApiModelProperty("分页参数")
     private PageInfo<ExamSearchReqVO> pageParam;
+
+    @JsonIgnore
+    private List<Integer> examIdList;
 }

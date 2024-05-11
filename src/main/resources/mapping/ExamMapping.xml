@@ -2,14 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.rainng.coursesystem.dao.mapper.ExamMapper">
-    <select id="getExamMainPage" resultType="com.rainng.coursesystem.model.entity.RcExamEntity">
-        select * from rc_exam
+    <select id="getExamMainPage" resultType="com.rainng.coursesystem.model.vo.response.ExamDetailVO">
+        select re.*,rc.course_id,rc.course_name from rc_exam re
+        left join rc_course rc
+        on re.exam_id = rc.course_exam_id
         <where>
             <if test="title != null and title != ''">
-                and title like ('%',#{title},'%')
+                and re.title like ('%',#{title},'%')
             </if>
             <if test="content != null and content != ''">
-                and content like ('%',#{content},'%')
+                and re.content like ('%',#{content},'%')
+            </if>
+            <if test="examIdList != null and examIdList.size()>0">
+                and re.exam_id in
+                <foreach collection="examIdList" index="index" open="(" item="item" close=")" separator=",">
+                    #{item}
+                </foreach>
             </if>
         </where>
     </select>

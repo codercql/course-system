@@ -5,6 +5,7 @@ import com.rainng.coursesystem.config.themis.annotation.Admin;
 import com.rainng.coursesystem.model.entity.RcExamEntity;
 import com.rainng.coursesystem.model.vo.request.ExamSearchReqVO;
 import com.rainng.coursesystem.model.vo.request.RcExamReqVO;
+import com.rainng.coursesystem.model.vo.response.ExamDetailVO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.service.RcExamService;
 import io.swagger.annotations.Api;
@@ -32,7 +33,7 @@ public class RcExamController {
 
     @ApiOperation("考试首页查询")
     @PostMapping("/getExamMainPage")
-    public ResultVO<PageInfo<RcExamEntity>> getExamMainPage(@RequestBody ExamSearchReqVO vo) {
+    public ResultVO<PageInfo<ExamDetailVO>> getExamMainPage(@RequestBody ExamSearchReqVO vo) {
         return rcExamService.getExamMainPage(vo);
     }
 
@@ -49,14 +50,14 @@ public class RcExamController {
     }
 
     @ApiOperation("删除考试")
-    @PostMapping("/delete")
+    @GetMapping("/delete")
     public ResultVO<String> deleteExam(@RequestParam("examId") String examId) {
         return rcExamService.deleteExam(examId);
     }
 
     @ApiOperation("通过学生Id获取考试列表")
-    @PostMapping("/getExamListByStudentId")
-    public ResultVO<List<RcExamEntity>> getExamListByStudentId(@RequestParam("studentId") Integer studentId){
+    @GetMapping("/getExamListByStudentId")
+    public ResultVO<List<ExamDetailVO>> getExamListByStudentId(@RequestParam("studentId") Integer studentId){
         return rcExamService.getExamListByStudentId(studentId);
     }
 }
