@@ -84,7 +84,7 @@ DROP TABLE IF EXISTS `rc_exam`;
 CREATE TABLE `rc_exam` (
   `exam_id` int(16) NOT NULL COMMENT '试卷id',
   `name` varchar(16) DEFAULT NULL COMMENT '考试名称',
-  `content` varchar(16) DEFAULT NULL COMMENT '考试内容',
+  `content` longtext DEFAULT NULL COMMENT '考试内容',
   `start_time` datetime DEFAULT NULL COMMENT '考试开始时间',
   `end_time` datetime DEFAULT NULL COMMENT '考试截止时间',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
