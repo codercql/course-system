@@ -28,7 +28,7 @@ public class RcHomeworkController {
 
 
     @ApiOperation("通过选课id查询作业")
-    @PostMapping("/getHomeworkByScId")
+    @GetMapping("/getHomeworkByScId")
     public ResultVO<RcHomeworkEntity> getHomeworkByScId(@RequestParam("scId") Integer scId) {
         return rcHomeworkService.getHomeworkByScId(scId);
     }
@@ -46,13 +46,13 @@ public class RcHomeworkController {
     }
 
     @ApiOperation("删除作业")
-    @PostMapping("/delete")
+    @GetMapping("/delete")
     public ResultVO<String> deleteHomework(@RequestParam("homeworkId") String homeworkId){
         return rcHomeworkService.deleteHomework(homeworkId);
     }
 
     @ApiOperation("通过学生id查询所有作业")
-    @PostMapping("/getHomeworkListByStudentId")
+    @GetMapping("/getHomeworkListByStudentId")
     public ResultVO<List<RcHomeworkEntity>> getHomeworkListByStudentId(@RequestParam("studentId") Integer studentId) {
         return rcHomeworkService.getHomeworkListByStudentId(studentId);
     }

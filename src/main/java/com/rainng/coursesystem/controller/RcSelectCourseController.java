@@ -25,7 +25,7 @@ public class RcSelectCourseController {
     private RcSelectCourseService rcSelectCourseService;
 
     @ApiOperation("通过选课id查询选课详情")
-    @PostMapping("/getInfoByScId")
+    @GetMapping("/getInfoByScId")
     public ResultVO<RcSelectCourseEntity> getInfoByScId(@RequestParam("scId") Integer scId) {
         return rcSelectCourseService.getInfoByScId(scId);
     }

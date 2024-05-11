@@ -45,7 +45,7 @@ public class RcNoticeController {
     }
 
     @ApiOperation("删除公告")
-    @PostMapping("/delete")
+    @GetMapping("/delete")
     public ResultVO<String> deleteNotice(@RequestParam("noticeId") String noticeId){
         return rcNoticeService.deleteNotice(noticeId);
     }

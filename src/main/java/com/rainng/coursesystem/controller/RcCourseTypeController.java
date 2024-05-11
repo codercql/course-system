@@ -41,13 +41,13 @@ public class RcCourseTypeController {
     }
 
     @ApiOperation("删除课程类型")
-    @PostMapping("/delete")
+    @GetMapping("/delete")
     public ResultVO<String> deleteCourseType(@RequestParam("typeId") String typeId) {
         return rcCourseTypeService.deleteCourseType(typeId);
     }
 
     @ApiOperation("查询课程类型,不传typeId默认查全部分类的第一二层")
-    @PostMapping("/getTypeMainPage")
+    @GetMapping("/getTypeMainPage")
     public ResultVO<List<CourseTypeSearchResVO>> getTypeMainPage(@RequestParam(name = "typeId",required = false) Integer typeId){
         return rcCourseTypeService.getTypeMainPage(typeId);
     }
