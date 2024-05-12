@@ -28,9 +28,9 @@ public class RcHomeworkController {
 
 
     @ApiOperation("通过选课id查询作业")
-    @GetMapping("/getHomeworkByScId")
-    public ResultVO<RcHomeworkEntity> getHomeworkByScId(@RequestParam("scId") Integer scId) {
-        return rcHomeworkService.getHomeworkByScId(scId);
+    @GetMapping("/getHomeworkByCourseId")
+    public ResultVO<RcHomeworkEntity> getHomeworkByScId(@RequestParam("courseId") Integer courseId) {
+        return rcHomeworkService.getHomeworkByCourseId(courseId);
     }
 
     @ApiOperation("新增作业")

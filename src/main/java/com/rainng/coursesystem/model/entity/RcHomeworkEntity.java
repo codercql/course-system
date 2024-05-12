@@ -29,7 +29,7 @@ public class RcHomeworkEntity implements Serializable {
 	/**
 	 * 选课关系id
 	 */
-	private Integer scId;
+	private Integer courseId;
 	/**
 	 * 作业名称
 	 */

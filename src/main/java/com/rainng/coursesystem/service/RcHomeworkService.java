@@ -33,10 +33,10 @@ public class RcHomeworkService extends BaseService{
     @Autowired
     private RcSelectCourseMapper rcSelectCourseMapper;
 
-    @ApiModelProperty("通过选课id查询作业")
-    @PostMapping("/getHomeworkByScId")
-    public ResultVO<RcHomeworkEntity> getHomeworkByScId(Integer scId) {
-        LambdaQueryWrapper<RcHomeworkEntity> eq = new LambdaQueryWrapper<RcHomeworkEntity>().eq(RcHomeworkEntity::getScId, scId);
+    @ApiModelProperty("通过课程id查询作业")
+    @PostMapping("/getHomeworkByCourseId")
+    public ResultVO<RcHomeworkEntity> getHomeworkByCourseId(Integer courseId) {
+        LambdaQueryWrapper<RcHomeworkEntity> eq = new LambdaQueryWrapper<RcHomeworkEntity>().eq(RcHomeworkEntity::getCourseId, courseId);
         List<RcHomeworkEntity> rcHomeworkEntities = homeworkMapper.selectList(eq);
         return result(rcHomeworkEntities.get(0));
     }
