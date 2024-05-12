@@ -66,13 +66,15 @@ public class RcExamService extends BaseService {
 
     public ResultVO<String> updateExam(RcExamReqVO vo) {
         RcExamEntity entity = new RcExamEntity();
+
+        BeanUtils.copyProperties(vo,entity);
         entity.setUpdateTime(new Date());
 
         RcCourseEntity rcCourseEntity = rcCourseMapper.selectById(vo.getCourseId());
         if (rcCourseEntity == null) {
             return failedResult("课程不存在");
         }
-        rcCourseEntity.setCourseExamId(entity.getExamId());
+        rcCourseEntity.setCourseExamId(vo.getExamId());
         rcCourseEntity.setUpdateTime(new Date());
         examMapper.updateById(entity);
         rcCourseMapper.updateById(rcCourseEntity);
