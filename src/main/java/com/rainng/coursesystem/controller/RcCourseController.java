@@ -113,14 +113,14 @@ public class RcCourseController extends BaseController {
         return rcCourseService.delete(courseId);
     }
 
-    @ApiOperation("通过课程Id列表获取封面压缩包文件，封面图片命名 courseId.zip")
+    @ApiOperation("通过课程Id列表获取封面和文件压缩包文件，封面图片命名 courseId.jpg 课程文件命名 courseId.zip")
     @PostMapping("/getCoverByCourseIdList")
     public ResultVO<String> getCoverByCourseIdList(@RequestBody List<Integer> courseId, HttpServletResponse response) {
         return rcCourseService.getCoverByCourseIdList(courseId, response);
     }
 
-    @ApiOperation("通过课程Id获取文件")
-    @GetMapping("/getFileByCourseId")
+//    @ApiOperation("通过课程Id获取文件")
+//    @GetMapping("/getFileByCourseId")
     public ResultVO<String> getFileByCourseId(@RequestParam("courseId") Integer courseId, HttpServletResponse response) {
         return rcCourseService.getFileByCourseId(courseId, response);
     }

@@ -72,16 +72,24 @@ public class RcCourseService extends BaseService{
         List<DownloadFileDto> downloadFileDtoList = new ArrayList<>();
         // 这里的i的作用是保证文件名唯一，否则往ZIP中添加文件会报异常
         for (RcCourseEntity resVO : entityList) {
-            if(resVO.getCover() == null){
-                continue;
+            if(resVO.getCover() != null){
+                // 封面字节流
+                byte[] bytes = resVO.getCover();
+                String fileName = resVO.getCourseId() + ".jpg";
+                DownloadFileDto dto = new DownloadFileDto();
+                dto.setFileName(fileName);
+                dto.setByteDataArr(bytes);
+                downloadFileDtoList.add(dto);
             }
-            // 你的每一个文件字节流
-            byte[] bytes = resVO.getCover();
-            String fileName = resVO.getCourseId() + ".jpg";
-            DownloadFileDto dto = new DownloadFileDto();
-            dto.setFileName(fileName);
-            dto.setByteDataArr(bytes);
-            downloadFileDtoList.add(dto);
+            if(resVO.getFile() != null){
+                //文件字节流
+                byte[] fileBytes = resVO.getFile();
+                String fileName2 = resVO.getCourseId() + ".zip";
+                DownloadFileDto dto2 = new DownloadFileDto();
+                dto2.setFileName(fileName2);
+                dto2.setByteDataArr(fileBytes);
+                downloadFileDtoList.add(dto2);
+            }
         }
         String fileName = "cover.zip";
         response.reset();
@@ -103,15 +111,32 @@ public class RcCourseService extends BaseService{
     }
 
     public ResultVO<String> getFileByCourseId(Integer courseId, HttpServletResponse response) {
-        RcCourseEntity entity = rcCourseMapper.selectById(courseId);
-        try {
-            response.setCharacterEncoding("UTF-8");
-            response.setContentType("application/octet-stream");
-            response.setHeader("Content-Disposition", "attachment;filename=" + "");
-            response.getOutputStream().write(entity.getFile());
-        } catch (IOException e) {
-            log.error("文件流写入失败={}", e.getMessage());
-            e.printStackTrace();
+        List<DownloadFileDto> downloadFileDtoList = new ArrayList<>();
+        // 这里的i的作用是保证文件名唯一，否则往ZIP中添加文件会报异常
+        RcCourseEntity resVO = rcCourseMapper.selectById(courseId);
+        if(resVO.getFile() == null){
+            return failedResult("文件不存在");
+        }
+        // 你的每一个文件字节流
+        byte[] bytes = resVO.getFile();
+        DownloadFileDto dto = new DownloadFileDto();
+        dto.setFileName("file.zip");
+        dto.setByteDataArr(bytes);
+        downloadFileDtoList.add(dto);
+        response.reset();
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition", "attachment;filename=" + "file.zip");
+        byte[] dataByteArr = new byte[0];
+        if (CollectionUtils.isNotEmpty(downloadFileDtoList)) {
+            try {
+                dataByteArr = ZipFileUtil.zipFile(downloadFileDtoList);
+                response.getOutputStream().write(dataByteArr);
+                response.flushBuffer();
+            } catch (Exception e) {
+                log.error("压缩zip数据出现异常", e);
+                return failedResult("压缩zip数据出现异常"+e.getMessage());
+            }
         }
         return result("获取文件成功");
     }

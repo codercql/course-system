@@ -95,7 +95,7 @@ CREATE TABLE `rc_exam` (
 DROP TABLE IF EXISTS `rc_homework`;
 CREATE TABLE `rc_homework` (
   `homework_id` int(16) NOT NULL COMMENT '作业id',
-  `sc_id` int(16) DEFAULT NULL COMMENT '选课关系id',
+  `course_id` int(16) DEFAULT NULL COMMENT '课程id',
   `name` varchar(16) DEFAULT NULL COMMENT '作业名称',
   `content` longtext COMMENT '作业内容',
   `start_time` datetime DEFAULT NULL COMMENT '作业开始时间',
