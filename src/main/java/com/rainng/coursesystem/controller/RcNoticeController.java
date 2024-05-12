@@ -3,6 +3,7 @@ package com.rainng.coursesystem.controller;
 import com.github.pagehelper.PageInfo;
 import com.rainng.coursesystem.model.entity.RcNoticeEntity;
 import com.rainng.coursesystem.model.vo.request.NoticeSearchReqVO;
+import com.rainng.coursesystem.model.vo.response.NoticeSearchResVO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.service.RcNoticeService;
 import io.swagger.annotations.Api;
@@ -28,7 +29,7 @@ public class RcNoticeController {
 
     @ApiOperation("公告首页查询")
     @PostMapping("/getNoticeMainPage")
-    public ResultVO<PageInfo<RcNoticeEntity>> getNoticeMainPage(@RequestBody NoticeSearchReqVO vo) {
+    public ResultVO<PageInfo<NoticeSearchResVO>> getNoticeMainPage(@RequestBody NoticeSearchReqVO vo) {
         return rcNoticeService.getNoticeMainPage(vo);
     }
 

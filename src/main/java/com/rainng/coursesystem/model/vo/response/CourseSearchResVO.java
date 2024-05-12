@@ -12,4 +12,6 @@ import lombok.Data;
 @Data
 public class CourseSearchResVO extends RcCourseEntity {
     private String typeName;
+
+    private String teacherName;
 }

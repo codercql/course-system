@@ -105,6 +105,9 @@ public class RcCourseService extends BaseService{
     public ResultVO<String> getFileByCourseId(Integer courseId, HttpServletResponse response) {
         RcCourseEntity entity = rcCourseMapper.selectById(courseId);
         try {
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("application/octet-stream");
+            response.setHeader("Content-Disposition", "attachment;filename=" + "");
             response.getOutputStream().write(entity.getFile());
         } catch (IOException e) {
             log.error("文件流写入失败={}", e.getMessage());

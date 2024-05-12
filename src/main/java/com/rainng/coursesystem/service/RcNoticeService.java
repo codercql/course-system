@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.rainng.coursesystem.dao.mapper.NoticeMapper;
 import com.rainng.coursesystem.model.entity.RcNoticeEntity;
 import com.rainng.coursesystem.model.vo.request.NoticeSearchReqVO;
+import com.rainng.coursesystem.model.vo.response.NoticeSearchResVO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.util.RandomNumUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class RcNoticeService extends BaseService{
     @Autowired
     private NoticeMapper noticeMapper;
 
-    public ResultVO<PageInfo<RcNoticeEntity>> getNoticeMainPage(NoticeSearchReqVO vo) {
+    public ResultVO<PageInfo<NoticeSearchResVO>> getNoticeMainPage(NoticeSearchReqVO vo) {
         List<RcNoticeEntity> noticeMainPage = noticeMapper.getNoticeMainPage(vo);
         PageInfo<RcNoticeEntity> pageInfo = new PageInfo<>(noticeMainPage);
         return result(pageInfo);
