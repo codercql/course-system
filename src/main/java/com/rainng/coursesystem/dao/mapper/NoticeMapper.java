@@ -3,6 +3,7 @@ package com.rainng.coursesystem.dao.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.rainng.coursesystem.model.entity.RcNoticeEntity;
 import com.rainng.coursesystem.model.vo.request.NoticeSearchReqVO;
+import com.rainng.coursesystem.model.vo.response.NoticeSearchResVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -15,5 +16,5 @@ import java.util.List;
  **/
 @Mapper
 public interface NoticeMapper extends BaseMapper<RcNoticeEntity> {
-    List<RcNoticeEntity> getNoticeMainPage(NoticeSearchReqVO vo);
+    List<NoticeSearchResVO> getNoticeMainPage(NoticeSearchReqVO vo);
 }

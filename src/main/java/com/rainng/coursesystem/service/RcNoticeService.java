@@ -26,8 +26,8 @@ public class RcNoticeService extends BaseService{
     private NoticeMapper noticeMapper;
 
     public ResultVO<PageInfo<NoticeSearchResVO>> getNoticeMainPage(NoticeSearchReqVO vo) {
-        List<RcNoticeEntity> noticeMainPage = noticeMapper.getNoticeMainPage(vo);
-        PageInfo<RcNoticeEntity> pageInfo = new PageInfo<>(noticeMainPage);
+        List<NoticeSearchResVO> noticeMainPage = noticeMapper.getNoticeMainPage(vo);
+        PageInfo<NoticeSearchResVO> pageInfo = new PageInfo<>(noticeMainPage);
         return result(pageInfo);
     }
 
