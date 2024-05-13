@@ -1,6 +1,7 @@
 package com.rainng.coursesystem.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.rainng.coursesystem.dao.mapper.HomeworkMapper;
 import com.rainng.coursesystem.dao.mapper.RcSelectCourseMapper;
 import com.rainng.coursesystem.model.entity.RcHomeworkEntity;
@@ -36,6 +37,9 @@ public class RcHomeworkService extends BaseService{
     @ApiModelProperty("通过课程id查询作业")
     @PostMapping("/getHomeworkByCourseId")
     public ResultVO<List<RcHomeworkEntity>> getHomeworkByCourseId(Integer courseId) {
+        if(courseId == null){
+            return result(homeworkMapper.selectList(new QueryWrapper<>()));
+        }
         LambdaQueryWrapper<RcHomeworkEntity> eq = new LambdaQueryWrapper<RcHomeworkEntity>().eq(RcHomeworkEntity::getCourseId, courseId);
         List<RcHomeworkEntity> rcHomeworkEntities = homeworkMapper.selectList(eq);
         return result(rcHomeworkEntities);
