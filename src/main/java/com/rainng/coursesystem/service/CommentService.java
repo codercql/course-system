@@ -50,7 +50,7 @@ public class CommentService extends BaseService {
 
     public ResultVO<String> addReply(ReplyVO vo) {
         CommentEntity entity = new CommentEntity();
-        entity.setCommentId(vo.getCommentId());
+        entity.setCommentId(RandomNumUtil.getRandomNum());
         entity.setCourseId(vo.getCourseId());
         entity.setComment(vo.getComment());
         entity.setReplyId(vo.getCommentId());
