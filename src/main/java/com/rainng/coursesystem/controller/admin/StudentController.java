@@ -30,6 +30,7 @@ public class StudentController extends BaseController {
         return service.create(entity);
     }
 
+    @ApiOperation("删除学生信息")
     @DeleteMapping("/{id}")
     public ResultVO delete(@PathVariable Integer id) {
         return service.delete(id);
