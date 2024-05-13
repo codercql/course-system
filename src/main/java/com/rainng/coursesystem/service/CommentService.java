@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -67,7 +68,8 @@ public class CommentService extends BaseService {
      * @Author: chenqiulu
      * @Date: 2024/4/11
      */
-    public ResultVO<CommentReplyVO> getComment(Integer courseId) {
+    public ResultVO<List<CommentReplyVO>> getComment(Integer courseId) {
+        List<CommentReplyVO> commentReplyVOList = new ArrayList<>();
         //查询所有用户id和姓名
         List<UserIdNameVO> studentIdNameList = commentMapper.getStudentIdNameList();
         List<UserIdNameVO> teacherIdNameList = commentMapper.getTeacherIdNameList();
@@ -75,7 +77,7 @@ public class CommentService extends BaseService {
         Map<Integer, List<UserIdNameVO>> studentIdNameMap = studentIdNameList.stream().collect(Collectors.groupingBy(UserIdNameVO::getUserId));
         Map<Integer, List<UserIdNameVO>> teacherIdNameMap = teacherIdNameList.stream().collect(Collectors.groupingBy(UserIdNameVO::getUserId));
 
-        CommentReplyVO commentReplyVO = new CommentReplyVO();
+
         //先根据课程id查询评论,课程id为空查询全部评论
         List<CommentDetailVO> commentList = commentMapper.selectByCourseId(courseId);
         if (CollectionUtils.isEmpty(commentList)) {
@@ -83,6 +85,7 @@ public class CommentService extends BaseService {
         }
         //查询该评论所有回复
         commentList.forEach(commentDetailVO -> {
+            CommentReplyVO commentReplyVO = new CommentReplyVO();
             List<CommentDetailVO> replyList = commentMapper.selectListByReplyId(commentDetailVO.getCommentId());
             //查询用户名称
             String userName = getUserName(commentDetailVO.getCommentPrivilege(), commentDetailVO.getCommentUserId(), teacherIdNameMap, studentIdNameMap);
@@ -93,8 +96,9 @@ public class CommentService extends BaseService {
             });
             commentReplyVO.setComment(commentDetailVO);
             commentReplyVO.setReplyList(replyList);
+            commentReplyVOList.add(commentReplyVO);
         });
-        return result(commentReplyVO);
+        return result(commentReplyVOList);
 
     }
 

@@ -42,7 +42,7 @@ public class CommentController<ResultVo> {
 
     @ApiOperation("查询该课程所有评论(courseId为空则查询所有评论)")
     @GetMapping("/getComment")
-    public ResultVO<CommentReplyVO> getComment(@RequestParam("courseId") Integer courseId){
+    public ResultVO<List<CommentReplyVO>> getComment(@RequestParam("courseId") Integer courseId){
         return commentService.getComment(courseId);
     }
 
