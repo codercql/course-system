@@ -3,13 +3,11 @@ package com.rainng.coursesystem.controller;
 import com.rainng.coursesystem.model.vo.request.LoginVO;
 import com.rainng.coursesystem.model.vo.request.SignUpVO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
+import com.rainng.coursesystem.model.vo.response.UserDetailResVO;
 import com.rainng.coursesystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/user")
 @RestController
@@ -40,7 +38,12 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("/signUp")
-    public ResultVO signUp(@Validated @RequestBody SignUpVO signUpVO){
+    public ResultVO signUp(@Validated @RequestBody SignUpVO signUpVO) {
         return service.signUp(signUpVO);
+    }
+
+    @GetMapping("/getUserList")
+    public ResultVO<UserDetailResVO> getUserList(@RequestParam("userType") Integer userType) {
+        return service.getUserList(userType);
     }
 }

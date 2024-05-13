@@ -1,6 +1,7 @@
 package com.rainng.coursesystem.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.rainng.coursesystem.dao.mapper.AdminMapper;
 import com.rainng.coursesystem.dao.mapper.StudentMapper;
 import com.rainng.coursesystem.dao.mapper.TeacherMapper;
@@ -14,10 +15,12 @@ import com.rainng.coursesystem.model.entity.StudentEntity;
 import com.rainng.coursesystem.model.entity.TeacherEntity;
 import com.rainng.coursesystem.model.vo.request.SignUpVO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
+import com.rainng.coursesystem.model.vo.response.UserDetailResVO;
 import com.rainng.coursesystem.util.Md5Encrypt;
 import com.rainng.coursesystem.util.RandomNumUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -117,5 +120,17 @@ public class UserService extends BaseService {
             adminMapper.insert(adminEntity);
         }
         return result("已注册");
+    }
+
+    public ResultVO<UserDetailResVO> getUserList(Integer userType) {
+        UserDetailResVO userDetailResVO = new UserDetailResVO();
+        if (userType == UserType.STUDENT) {
+            userDetailResVO.setStudentList(studentMapper.selectList(new QueryWrapper<>()));
+        } else if (userType == UserType.TEACHER) {
+            userDetailResVO.setTeacherList(teacherMapper.selectList(new QueryWrapper<>()));
+        } else if (userType == UserType.ADMIN) {
+            userDetailResVO.setAdminList(adminMapper.selectList(new QueryWrapper<>()));
+        }
+        return result(userDetailResVO);
     }
 }
