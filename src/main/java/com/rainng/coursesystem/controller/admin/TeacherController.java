@@ -5,6 +5,8 @@ import com.rainng.coursesystem.controller.BaseController;
 import com.rainng.coursesystem.model.entity.TeacherEntity;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.service.admin.TeacherService;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,7 @@ public class TeacherController extends BaseController {
         this.service = service;
     }
 
+    @ApiOperation("教师信息查询")
     @GetMapping("/{id}")
     public ResultVO get(@PathVariable Integer id) {
         return service.get(id);
@@ -36,7 +39,8 @@ public class TeacherController extends BaseController {
         return service.delete(id);
     }
 
-    @PutMapping
+    @ApiOperation("教师信息更新")
+    @PostMapping("/update")
     public ResultVO update(@RequestBody @Validated TeacherEntity entity) {
         return service.update(entity);
     }

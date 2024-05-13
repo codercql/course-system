@@ -1,16 +1,20 @@
 package com.rainng.coursesystem.service.admin;
 
+import com.rainng.coursesystem.dao.mapper.StudentMapper;
 import com.rainng.coursesystem.manager.admin.StudentManager;
 import com.rainng.coursesystem.model.entity.StudentEntity;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.service.BaseService;
 import com.rainng.coursesystem.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class StudentService extends BaseService {
     private final StudentManager manager;
     private final UserService userService;
+    @Autowired
+    private StudentMapper studentMapper;
 
     public StudentService(StudentManager manager, UserService userService) {
         this.manager = manager;
@@ -26,6 +30,7 @@ public class StudentService extends BaseService {
     }
 
     public ResultVO get(Integer id) {
+        StudentEntity studentEntity = studentMapper.selectById(id);
         StudentEntity entity = manager.get(id);
         if (entity == null) {
             return failedResult("学生Id: " + id + "不存在!");
