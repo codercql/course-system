@@ -93,4 +93,12 @@ public class RcExamService extends BaseService {
         vo.setExamIdList(examIdList);
         return result(examMapper.getExamMainPage(vo));
     }
+
+    public ResultVO<List<ExamDetailVO>> getExamListByTeacherId(Integer teacherId) {
+        List<RcCourseEntity> rcSelectCourseEntities = rcCourseMapper.selectList(new LambdaQueryWrapper<RcCourseEntity>().eq(RcCourseEntity::getCourseTeacherId, teacherId));
+        List<Integer> examIdList = rcSelectCourseEntities.stream().map(RcCourseEntity::getCourseExamId).distinct().collect(Collectors.toList());
+        ExamSearchReqVO vo = new ExamSearchReqVO();
+        vo.setExamIdList(examIdList);
+        return result(examMapper.getExamMainPage(vo));
+    }
 }

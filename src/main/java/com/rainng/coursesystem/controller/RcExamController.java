@@ -60,4 +60,10 @@ public class RcExamController {
     public ResultVO<List<ExamDetailVO>> getExamListByStudentId(@RequestParam("studentId") Integer studentId){
         return rcExamService.getExamListByStudentId(studentId);
     }
+
+    @ApiOperation("通过老师Id获取考试列表")
+    @GetMapping("/getExamListByTeacherId")
+    public ResultVO<List<ExamDetailVO>> getExamListByTeacherId(@RequestParam("teacherId") Integer teacherId){
+        return rcExamService.getExamListByTeacherId(teacherId);
+    }
 }
