@@ -1,6 +1,7 @@
 package com.rainng.coursesystem.controller;
 
 import com.rainng.coursesystem.model.entity.RcHomeworkEntity;
+import com.rainng.coursesystem.model.vo.response.RcHomeworkDetailVO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.service.RcHomeworkService;
 import io.swagger.annotations.Api;
@@ -29,7 +30,7 @@ public class RcHomeworkController {
 
     @ApiOperation("通过选课id查询作业,课程Id为空查询所有作业")
     @GetMapping("/getHomeworkByCourseId")
-    public ResultVO<List<RcHomeworkEntity>> getHomeworkByScId(@RequestParam(value = "courseId",required = false) Integer courseId) {
+    public ResultVO<List<RcHomeworkDetailVO>> getHomeworkByScId(@RequestParam(value = "courseId",required = false) Integer courseId) {
         return rcHomeworkService.getHomeworkByCourseId(courseId);
     }
 
@@ -53,7 +54,7 @@ public class RcHomeworkController {
 
     @ApiOperation("通过学生id查询所有作业")
     @GetMapping("/getHomeworkListByStudentId")
-    public ResultVO<List<RcHomeworkEntity>> getHomeworkListByStudentId(@RequestParam("studentId") Integer studentId) {
+    public ResultVO<List<RcHomeworkDetailVO>> getHomeworkListByStudentId(@RequestParam("studentId") Integer studentId) {
         return rcHomeworkService.getHomeworkListByStudentId(studentId);
     }
 }

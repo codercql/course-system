@@ -2,10 +2,12 @@ package com.rainng.coursesystem.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.rainng.coursesystem.dao.mapper.HomeworkMapper;
 import com.rainng.coursesystem.dao.mapper.RcSelectCourseMapper;
 import com.rainng.coursesystem.model.entity.RcHomeworkEntity;
 import com.rainng.coursesystem.model.entity.RcSelectCourseEntity;
+import com.rainng.coursesystem.model.vo.response.RcHomeworkDetailVO;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.util.RandomNumUtil;
 import io.swagger.annotations.ApiModelProperty;
@@ -36,13 +38,8 @@ public class RcHomeworkService extends BaseService{
 
     @ApiModelProperty("通过课程id查询作业")
     @PostMapping("/getHomeworkByCourseId")
-    public ResultVO<List<RcHomeworkEntity>> getHomeworkByCourseId(Integer courseId) {
-        if(courseId == null){
-            return result(homeworkMapper.selectList(new QueryWrapper<>()));
-        }
-        LambdaQueryWrapper<RcHomeworkEntity> eq = new LambdaQueryWrapper<RcHomeworkEntity>().eq(RcHomeworkEntity::getCourseId, courseId);
-        List<RcHomeworkEntity> rcHomeworkEntities = homeworkMapper.selectList(eq);
-        return result(rcHomeworkEntities);
+    public ResultVO<List<RcHomeworkDetailVO>> getHomeworkByCourseId(Integer courseId) {
+        return result(homeworkMapper.selectHomeworkDetailByCourseId(courseId));
     }
 
     public ResultVO<String> addHomework(RcHomeworkEntity entity){
@@ -66,9 +63,12 @@ public class RcHomeworkService extends BaseService{
         return result("更新作业成功！");
     }
 
-    public ResultVO<List<RcHomeworkEntity>> getHomeworkListByStudentId(Integer studentId) {
+    public ResultVO<List<RcHomeworkDetailVO>> getHomeworkListByStudentId(Integer studentId) {
         List<RcSelectCourseEntity> rcSelectCourseEntities = rcSelectCourseMapper.selectList(new LambdaQueryWrapper<RcSelectCourseEntity>().eq(RcSelectCourseEntity::getScStudentId, studentId));
         List<Integer> homeworkIdList = rcSelectCourseEntities.stream().map(RcSelectCourseEntity::getHomeworkId).distinct().collect(Collectors.toList());
-        return result(homeworkMapper.selectBatchIds(homeworkIdList));
+        if(CollectionUtils.isEmpty(homeworkIdList)){
+            return result(null);
+        }
+        return result(homeworkMapper.selectHomeworkDetailByHomeworkIdList(homeworkIdList));
     }
 }

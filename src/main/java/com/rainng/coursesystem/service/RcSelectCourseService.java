@@ -10,6 +10,7 @@ import com.rainng.coursesystem.model.vo.response.SelectCourseDetailVO;
 import com.rainng.coursesystem.util.RandomNumUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
@@ -35,6 +36,7 @@ public class RcSelectCourseService extends BaseService {
     }
 
 
+    @Transactional(rollbackFor = Exception.class)
     public ResultVO<String> addSelectCourse(RcSelectCourseEntity entity) {
         LambdaQueryWrapper<RcSelectCourseEntity> eq = new LambdaQueryWrapper<RcSelectCourseEntity>().eq(RcSelectCourseEntity::getScCourseId, entity.getScCourseId()).
                 eq(RcSelectCourseEntity::getScStudentId, entity.getScStudentId());
@@ -48,7 +50,7 @@ public class RcSelectCourseService extends BaseService {
         rcSelectCourseMapper.insert(entity);
         //更新课程表选课人数
         RcCourseEntity rcCourseEntity = rcCourseMapper.selectById(entity.getScCourseId());
-        Integer count = rcCourseEntity.getCourseSelectedCount();
+        int count = rcCourseEntity.getCourseSelectedCount();
         rcCourseEntity.setCourseSelectedCount(count + 1);
         rcCourseEntity.setUpdateTime(new Date());
         rcCourseMapper.updateById(rcCourseEntity);

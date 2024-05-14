@@ -42,7 +42,7 @@ public class RcCourseEntity {
     /**
      *
      */
-    private Integer courseSelectedCount;
+    private int courseSelectedCount;
     /**
      * 考试时间
      */
