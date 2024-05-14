@@ -11,5 +11,8 @@ import lombok.Data;
  **/
 @Data
 public class RcHomeworkDetailVO extends RcHomeworkEntity {
+
+    private String courseName;
+
     private String teacherName;
 }
