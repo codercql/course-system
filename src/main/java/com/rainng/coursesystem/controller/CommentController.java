@@ -51,4 +51,10 @@ public class CommentController<ResultVo> {
     public ResultVO<List<CommentDetailVO>> getCommentByUserId(@RequestParam("userId") String userId){
         return commentService.getCommentByUserId(userId);
     }
+
+    @ApiOperation("删除评论")
+    @GetMapping("/delete")
+    public ResultVO<String> deleteComment(@RequestParam("commentId") String commentId) {
+        return commentService.deleteComment(commentId);
+    }
 }

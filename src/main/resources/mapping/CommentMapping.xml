@@ -36,4 +36,13 @@
         </where>
         order by comment_tm,reply_tm desc
     </select>
+
+    <delete id="deleteComment" >
+        delete from rc_comment
+        <where>
+            <if test="commentId != null and commentId != ''">
+                comment_id = #{commentId} or reply_id = #{commentId}
+            </if>
+        </where>
+    </delete>
 </mapper>

@@ -13,6 +13,7 @@ import com.rainng.coursesystem.util.RandomNumUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -131,5 +132,10 @@ public class CommentService extends BaseService {
             commentDetailVO.setCommentUserName(userName);
         });
         return result(commentByUserId);
+    }
+
+    public ResultVO<String> deleteComment(String commentId) {
+        commentMapper.deleteComment(commentId);
+        return result("删除评论成功");
     }
 }

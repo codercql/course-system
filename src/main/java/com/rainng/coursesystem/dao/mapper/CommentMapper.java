@@ -27,4 +27,6 @@ public interface CommentMapper extends BaseMapper<CommentEntity> {
 
     List<CommentDetailVO> getCommentByUserId(String userId);
 
+    void deleteComment(String commentId);
+
 }
