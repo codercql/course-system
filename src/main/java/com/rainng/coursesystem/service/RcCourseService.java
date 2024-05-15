@@ -49,6 +49,16 @@ public class RcCourseService extends BaseService{
         }
         entity.setUpdateTime(new Date());
 
+        LambdaQueryWrapper<RcSelectCourseEntity> eq = new LambdaQueryWrapper<RcSelectCourseEntity>().eq(RcSelectCourseEntity::getScCourseId, entity.getCourseId());
+        List<RcSelectCourseEntity> rcSelectCourseEntities = rcSelectCourseMapper.selectList(eq);
+        rcSelectCourseEntities.forEach(sc->{
+            sc.setUpdateTime(new Date());
+            sc.setExamId(entity.getCourseExamId());
+            sc.setHomeworkId(entity.getCourseHomeworkId());
+            rcSelectCourseMapper.updateById(sc);
+        });
+
+
         rcCourseMapper.updateById(entity);
         return result("更新成功");
     }
