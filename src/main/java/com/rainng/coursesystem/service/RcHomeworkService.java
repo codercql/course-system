@@ -43,10 +43,20 @@ public class RcHomeworkService extends BaseService{
     }
 
     public ResultVO<String> addHomework(RcHomeworkEntity entity){
-        entity.setHomeworkId(RandomNumUtil.getRandomNum());
+        int homeworkId = RandomNumUtil.getRandomNum();
+        entity.setHomeworkId(homeworkId);
         entity.setCreateTime(new Date());
         entity.setUpdateTime(new Date());
         homeworkMapper.insert(entity);
+        if (entity.getCourseId() != null) {
+            LambdaQueryWrapper<RcSelectCourseEntity> eq = new LambdaQueryWrapper<RcSelectCourseEntity>().eq(RcSelectCourseEntity::getScCourseId, entity.getCourseId());
+            List<RcSelectCourseEntity> rcSelectCourseEntities = rcSelectCourseMapper.selectList(eq);
+            rcSelectCourseEntities.forEach(sc -> {
+                sc.setUpdateTime(new Date());
+                sc.setHomeworkId(homeworkId);
+                rcSelectCourseMapper.updateById(sc);
+            });
+        }
         return result("新增作业成功！");
     }
 

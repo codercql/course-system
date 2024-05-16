@@ -61,6 +61,16 @@ public class RcExamService extends BaseService {
 
         examMapper.insert(entity);
         rcCourseMapper.updateById(rcCourseEntity);
+
+        if(vo.getCourseId() != null){
+            LambdaQueryWrapper<RcSelectCourseEntity> eq = new LambdaQueryWrapper<RcSelectCourseEntity>().eq(RcSelectCourseEntity::getScCourseId, vo.getCourseId());
+            List<RcSelectCourseEntity> rcSelectCourseEntities = rcSelectCourseMapper.selectList(eq);
+            rcSelectCourseEntities.forEach(sc->{
+                sc.setUpdateTime(new Date());
+                sc.setExamId(examId);
+                rcSelectCourseMapper.updateById(sc);
+            });
+        }
         return result("新增考试成功！");
     }
 
