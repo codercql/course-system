@@ -1,9 +1,12 @@
 package com.rainng.coursesystem.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.rainng.coursesystem.dao.mapper.ExamMapper;
+import com.rainng.coursesystem.dao.mapper.HomeworkMapper;
 import com.rainng.coursesystem.dao.mapper.RcCourseMapper;
 import com.rainng.coursesystem.dao.mapper.RcSelectCourseMapper;
 import com.rainng.coursesystem.model.entity.RcCourseEntity;
+import com.rainng.coursesystem.model.entity.RcExamEntity;
 import com.rainng.coursesystem.model.entity.RcSelectCourseEntity;
 import com.rainng.coursesystem.model.vo.response.ResultVO;
 import com.rainng.coursesystem.model.vo.response.SelectCourseDetailVO;
@@ -28,6 +31,10 @@ public class RcSelectCourseService extends BaseService {
     private RcSelectCourseMapper rcSelectCourseMapper;
     @Autowired
     private RcCourseMapper rcCourseMapper;
+    @Autowired
+    private ExamMapper examMapper;
+    @Autowired
+    private HomeworkMapper homeworkMapper;
 
 
     public ResultVO<RcSelectCourseEntity> getInfoByScId(Integer scId) {
@@ -47,12 +54,16 @@ public class RcSelectCourseService extends BaseService {
         entity.setScId(RandomNumUtil.getRandomNum());
         entity.setCreateTime(new Date());
         entity.setUpdateTime(new Date());
-        rcSelectCourseMapper.insert(entity);
+
         //更新课程表选课人数
         RcCourseEntity rcCourseEntity = rcCourseMapper.selectById(entity.getScCourseId());
         int count = rcCourseEntity.getCourseSelectedCount();
         rcCourseEntity.setCourseSelectedCount(count + 1);
         rcCourseEntity.setUpdateTime(new Date());
+
+        // 查询考试
+        entity.setExamId(rcCourseEntity.getCourseExamId());
+        rcSelectCourseMapper.insert(entity);
         rcCourseMapper.updateById(rcCourseEntity);
         return result("选课关系新增成功！");
     }

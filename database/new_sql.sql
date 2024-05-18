@@ -60,7 +60,6 @@ CREATE TABLE `rc_course` (
   `file` longblob DEFAULT NULL COMMENT '课程文件',
   `course_exam_frame` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '课程考试大纲',
   `course_exam_id` int(16) DEFAULT NULL,
-  `course_homework_id` int(16) DEFAULT NULL,
   `course_start_time` datetime DEFAULT NULL,
   `course_end_time` datetime DEFAULT NULL,
   PRIMARY KEY (`course_id`)
@@ -69,15 +68,15 @@ CREATE TABLE `rc_course` (
 -- ----------------------------
 -- Records of rc_course
 -- ----------------------------
-INSERT INTO `rc_course` VALUES ('1', '1', 'C语言程序设计', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `rc_course` VALUES ('2', '1', 'Java程序设计', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `rc_course` VALUES ('3', '1', '数据库实用技术', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `rc_course` VALUES ('4', '1', 'ASP.Net开发', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `rc_course` VALUES ('5', '1', 'Spring企业级开发', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `rc_course` VALUES ('6', '3', '数据库概论', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `rc_course` VALUES ('7', '3', 'Photoshop', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `rc_course` VALUES ('8', '4', '计算机网络', null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `rc_course` VALUES ('9', '6', '测试', null, null, null, '2024-04-15 00:00:00', null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `rc_course` VALUES ('1', '1', 'C语言程序设计', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `rc_course` VALUES ('2', '1', 'Java程序设计', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `rc_course` VALUES ('3', '1', '数据库实用技术', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `rc_course` VALUES ('4', '1', 'ASP.Net开发', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `rc_course` VALUES ('5', '1', 'Spring企业级开发', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `rc_course` VALUES ('6', '3', '数据库概论', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `rc_course` VALUES ('7', '3', 'Photoshop', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `rc_course` VALUES ('8', '4', '计算机网络', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `rc_course` VALUES ('9', '6', '测试', null, null, null, '2024-04-15 00:00:00', null, null, null, null, null, null, null, null, null);
 
 
 DROP TABLE IF EXISTS `rc_exam`;
