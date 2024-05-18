@@ -4,7 +4,7 @@
 <mapper namespace="com.rainng.coursesystem.dao.mapper.HomeworkMapper">
     <select id="selectHomeworkDetailByCourseId" resultType="com.rainng.coursesystem.model.vo.response.RcHomeworkDetailVO">
         select a.*,c.teacher_name,b.course_name from rc_homework a
-        left join rc_course b on b.course_id = a.sc_course_id
+        left join rc_course b on b.course_id = a.course_id
         left join rc_teacher c on b.course_teacher_id = c.teacher_id
         <where>
             <if test="courseId != null and courseId != 0">
@@ -15,7 +15,7 @@
 
     <select id="selectHomeworkDetailByHomeworkIdList" resultType="com.rainng.coursesystem.model.vo.response.RcHomeworkDetailVO">
         select a.*,c.teacher_name,b.course_name from rc_homework a
-        left join rc_course b on b.course__id = a.sc_course_id
+        left join rc_course b on b.course_id = a.course_id
         left join rc_teacher c on b.course_teacher_id = c.teacher_id
         <where>
             <if test="homeworkIdList != null and homeworkIdList.size() > 0">
