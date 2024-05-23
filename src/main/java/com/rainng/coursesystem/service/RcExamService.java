@@ -2,7 +2,9 @@ package com.rainng.coursesystem.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
 import com.rainng.coursesystem.dao.mapper.ExamMapper;
 import com.rainng.coursesystem.dao.mapper.RcCourseMapper;
 import com.rainng.coursesystem.dao.mapper.RcSelectCourseMapper;
@@ -107,6 +109,9 @@ public class RcExamService extends BaseService {
     public ResultVO<List<ExamDetailVO>> getExamListByTeacherId(Integer teacherId) {
         List<RcCourseEntity> rcSelectCourseEntities = rcCourseMapper.selectList(new LambdaQueryWrapper<RcCourseEntity>().eq(RcCourseEntity::getCourseTeacherId, teacherId));
         List<Integer> examIdList = rcSelectCourseEntities.stream().map(RcCourseEntity::getCourseExamId).distinct().collect(Collectors.toList());
+        if(CollectionUtils.isEmpty(examIdList)){
+            return result(Lists.newArrayList());
+        }
         ExamSearchReqVO vo = new ExamSearchReqVO();
         vo.setExamIdList(examIdList);
         return result(examMapper.getExamMainPage(vo));
